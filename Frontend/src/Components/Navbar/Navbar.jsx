@@ -1,62 +1,67 @@
 import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { IoMdCart } from "react-icons/io";
+import { GoDotFill } from "react-icons/go";
 
 function Navbar() {
-        const [menu,setMenu] = useState("Home")
+  const [menu, setMenu] = useState("Home");
 
-    const navItemClass = (item) =>
-  `relative cursor-pointer
-   after:content-['']
-   after:absolute
-   after:left-0
-   after:-bottom-1
-   after:h-[1.5px]
-   after:w-full
-   after:bg-gray-600
-   after:origin-center
-   after:transition-transform
-   after:duration-300
-   ${
-     menu === item
-       ? "after:scale-x-100"
-       : "after:scale-x-0 hover:after:scale-x-100"
-   }`;
+  const navItemClass = (item) =>
+    `relative cursor-pointer
+    after:content-['']
+    after:absolute
+    after:left-0
+    after:-bottom-1
+    after:h-[1.5px]
+    after:w-full
+    after:bg-gray-600
+    after:origin-center
+    after:transition-transform
+    after:duration-300
+    ${
+      menu === item
+        ? "after:scale-x-100"
+        : "after:scale-x-0 hover:after:scale-x-100"
+    }`;
 
   return (
-    <div className="flex font-outfit justify-around p-2 items-center">
+    <div className="flex font-outfit justify-around py-3 sm:p-4 items-center">
       <div>
-        <h2 className="text-3xl text-orange-500 font-bold font-chewy cursor-pointer">
-          Pakhii Delivery
+        <h2 className="text-[20px] sm:text-2xl text-orange-500 font-bold font-chewy cursor-pointer whitespace-nowrap">
+          Pakhii Delivery...
         </h2>
       </div>
-      <ul className="flex gap-6 text-gray-600">
-        <li onClick={()=>setMenu("Home")}
-          className={navItemClass("Home")}
-        >
+      <ul className="hidden lg:flex gap-10 text-gray-600 select-none whitespace-nowrap">
+        <li onClick={() => setMenu("Home")} className={navItemClass("Home")}>
           Home
         </li>
 
-       <li onClick={()=>setMenu("Menu")}
-          className={navItemClass("Menu")}
-        >
+        <li onClick={() => setMenu("Menu")} className={navItemClass("Menu")}>
           Menu
         </li>
-        <li onClick={()=>setMenu("Mobile-app")}
+        <li
+          onClick={() => setMenu("Mobile-app")}
           className={navItemClass("Mobile-app")}
         >
           Mobile-app
         </li>
-      <li onClick={()=>setMenu("Contact us")}
+        <li
+          onClick={() => setMenu("Contact us")}
           className={navItemClass("Contact us")}
         >
           Contact us
         </li>
       </ul>
-      <div className="flex gap-7 text-gray-600 justify-center items-center">
-        <CiSearch size={28} />
-        <IoMdCart size={28} />
-        <button className="border text-gray-600 px-2 py-1 rounded-2xl cursor-pointer hover:bg-gray-400 hover:text-white duration-150">
+      <div className="flex gap-3 sm:gap-7 text-gray-600 justify-center items-center">
+        <CiSearch size={28} className="cursor-pointer" />
+        <div className="relative">
+          <IoMdCart size={28} className="cursor-pointer " />
+          <GoDotFill
+            color={"#fc8428"}
+            className="absolute top-[-10px] right-[-5px]"
+          />
+        </div>
+        <button className="border border-gray-500 text-gray-600 px-2 py-1 rounded-2xl cursor-pointer hover:bg-gray-200 duration-150 whitespace-nowrap">
           Sign In
         </button>
       </div>

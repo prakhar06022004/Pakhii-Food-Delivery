@@ -1,9 +1,8 @@
-import { CiSearch } from "react-icons/ci";
 import Navbar from "./Components/Navbar/Navbar";
 
 function App() {
   return (
-    <div>
+    <div className="min-h-screen">
 <Navbar />
     </div>
   )
