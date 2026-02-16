@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { IoMdCart } from "react-icons/io";
 import { GoDotFill } from "react-icons/go";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 function Navbar() {
   const [menu, setMenu] = useState("Home");
@@ -25,13 +26,13 @@ function Navbar() {
     }`;
 
   return (
-    <div className="flex font-outfit justify-around py-3 sm:p-4 items-center">
+    <div className="flex font-outfit sm:justify-around justify-between py-3 p-4 items-center">
       <div>
-        <h2 className="text-[20px] sm:text-2xl text-orange-500 font-bold font-chewy cursor-pointer whitespace-nowrap">
-          Pakhii Delivery...
+        <h2 className="text-2xl sm:text-2xl text-orange-500 font-bold font-chewy cursor-pointer whitespace-nowrap">
+          Pakhii Delivery
         </h2>
       </div>
-      <ul className="hidden lg:flex gap-10 text-gray-600 select-none whitespace-nowrap">
+      <ul className="hidden md:flex gap-10 text-gray-600 select-none whitespace-nowrap">
         <li onClick={() => setMenu("Home")} className={navItemClass("Home")}>
           Home
         </li>
@@ -53,17 +54,27 @@ function Navbar() {
         </li>
       </ul>
       <div className="flex gap-3 sm:gap-7 text-gray-600 justify-center items-center">
-        <CiSearch size={28} className="cursor-pointer" />
+        <CiSearch size={28} className="cursor-pointer md:hidden" />
+        {/* <div className="border py-1 px-2 rounded-2xl w-60 hidden md:flex">
+          <CiSearch size={28} className="cursor-pointer" />{" "}
+          <input
+            type="search"
+            placeholder="Search..."
+            className="outline-none w-70"
+          />
+        </div> */}
+
         <div className="relative">
           <IoMdCart size={28} className="cursor-pointer " />
           <GoDotFill
             color={"#fc8428"}
-            className="absolute top-[-10px] right-[-5px]"
+            className="absolute -top-2.5 -right-1.25"
           />
         </div>
         <button className="border border-gray-500 text-gray-600 px-2 py-1 rounded-2xl cursor-pointer hover:bg-gray-200 duration-150 whitespace-nowrap">
           Sign In
         </button>
+        <RxHamburgerMenu className="md:hidden cursor-pointer" size={25} />
       </div>
     </div>
   );
