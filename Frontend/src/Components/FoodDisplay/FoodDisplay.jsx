@@ -5,20 +5,27 @@ import FoodItems from "../../../FoodItems/FoodItems";
 const FoodDisplay = ({ category }) => {
   const { food_list } = useContext(StoreContext);
   return (
-    <div className="max-w-7xl m-auto grid grid-cols-4 gap-6 mt-2 rounded-2xl">
-      {food_list?.map((item) => {
-        return (
-          <FoodItems
-            key={item._id}
-            id={item._id}
-            name={item.name}
-            price={item.price}
-            description={item.description}
-            image={item.image}
-          />
-        );
-      })}
-    </div>
+    <>
+      <p
+        className="font-medium text-2xl sm:text-3xl text-gray-800 max-w-6xl m-auto mb-5"
+      >
+        Top dishes near you
+      </p>
+      <div className="w-full max-w-7xl m-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {food_list?.map((item) => {
+          return (
+            <FoodItems
+              key={item._id}
+              id={item._id}
+              name={item.name}
+              price={item.price}
+              description={item.description}
+              image={item.image}
+            />
+          );
+        })}
+      </div>
+    </>
   );
 };
 

@@ -54,7 +54,7 @@ function Navbar() {
         </li>
       </ul>
       <div className="flex gap-3 sm:gap-7 text-gray-600 justify-center items-center">
-        <CiSearch size={28} className="cursor-pointer md:hidden" />
+        <CiSearch size={28} className="cursor-pointer" />
         {/* <div className="border py-1 px-2 rounded-2xl w-60 hidden md:flex">
           <CiSearch size={28} className="cursor-pointer" />{" "}
           <input
