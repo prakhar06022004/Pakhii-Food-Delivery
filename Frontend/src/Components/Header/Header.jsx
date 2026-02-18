@@ -8,7 +8,7 @@ function Header() {
         </p>
         <div className="mt-5">
           <p
-            className="text-white text-lg w-110 md:w-170 font-semibold font-pacifico hidden sm:block"
+            className="text-white text-lg w-110 md:w-190 font-semibold font-outfit hidden sm:block md:text-2xl"
             style={{ textShadow: "2px 2px 8px rgba(0,0,0,0.1)" }}
           >
             Choose your favorite meal from our carefully crafted menu and enjoy

@@ -26,7 +26,7 @@ function Menu({ category, setCategory }) {
             <img
               src={menuItem?.menu_image}
               alt={menuItem.menu_name}
-              className={`h-20 w-20 md:h-30 md:w-30 object-cover${category === menuItem.menu_name ? "border-amber-500 border-4 rounded-full " : ""}`}
+              className={`h-20 w-20 md:h-30 md:w-30 object-cover ${category === menuItem.menu_name ? "border-amber-500 border-4 rounded-full" : ""}`}
             />
             <p>{menuItem.menu_name}</p>
           </div>
