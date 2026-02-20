@@ -28,11 +28,13 @@ const StoreProvider = ({ children }) => {
 
   const contextValue = {
     food_list,
+    addToCart,
+    removeFromCart,
+    cartItems,
   };
+
   return (
-    <StoreContext.Provider
-      value={{ contextValue, addToCart, removeFromCart, cartItems }}
-    >
+    <StoreContext.Provider value={contextValue}>
       {children}
     </StoreContext.Provider>
   );

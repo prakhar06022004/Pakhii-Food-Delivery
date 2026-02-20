@@ -3,10 +3,11 @@ import { CiSearch } from "react-icons/ci";
 import { IoMdCart } from "react-icons/io";
 import { GoDotFill } from "react-icons/go";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const [menu, setMenu] = useState("Home");
-
+  const navigate = useNavigate();
   const navItemClass = (item) =>
     `relative cursor-pointer
     after:content-['']
@@ -26,13 +27,16 @@ function Navbar() {
     }`;
 
   return (
-    <div className="flex font-outfit sm:justify-around justify-between py-3 p-4 items-center">
+    <div className="flex font-outfit sm:justify-around justify-between py-3 p-4 items-center select-none">
       <div>
-        <h2 className="text-2xl sm:text-2xl text-orange-500 font-bold font-chewy cursor-pointer whitespace-nowrap">
+        <h2
+          className="text-2xl sm:text-2xl text-orange-500 font-bold font-chewy cursor-pointer whitespace-nowrap"
+          onClick={() => navigate("/")}
+        >
           Pakhii Delivery
         </h2>
       </div>
-      <ul className="hidden md:flex gap-10 text-gray-600 select-none whitespace-nowrap">
+      <ul className="hidden md:flex gap-10 text-gray-600 whitespace-nowrap">
         <li onClick={() => setMenu("Home")} className={navItemClass("Home")}>
           Home
         </li>
@@ -64,8 +68,8 @@ function Navbar() {
           />
         </div> */}
 
-        <div className="relative">
-          <IoMdCart size={28} className="cursor-pointer " />
+        <div className="relative" onClick={() => navigate("/cart")}>
+          <IoMdCart size={28} className="cursor-pointer" />
           <GoDotFill
             color={"#fc8428"}
             className="absolute -top-2.5 -right-1.25"

@@ -2,10 +2,10 @@ function Header() {
   return (
     <>
       <div className="w-full max-w-6xl mx-auto md:h-110 h-60 sm:h-80 bg-[url('/header_img.png')] mt-6 bg-cover bg-center rounded-2xl p-5 relative">
-        <p className="text-white font-bold w-fit shadow-[0_0_10px_rgba(0,0,0,0.1)] p-1 md:p-2 md:text-6xl text-4xl max-w-4xl">
+        <div className="text-white font-bold w-fit shadow-[0_0_10px_rgba(0,0,0,0.1)] p-1 md:p-2 md:text-6xl text-4xl max-w-4xl">
           <p className="">Craving something amazing?</p>
           <p className="hidden sm:block"> Order now. Eat happy.</p>
-        </p>
+        </div>
         <div className="mt-5">
           <p
             className="text-white text-lg w-110 md:w-190 font-semibold font-outfit hidden sm:block md:text-2xl"

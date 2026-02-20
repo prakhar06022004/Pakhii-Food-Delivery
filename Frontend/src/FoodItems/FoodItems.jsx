@@ -1,18 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { assets } from "../assets/frontend_assets/assets";
 import { FaOpencart } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
+import { StoreContext } from "../Context/StoreContext";
 
 const FoodItems = ({ id, name, price, image, description }) => {
-  const [itemCount, setItemCount] = useState(0);
-  const itemCountIncrease = () => {
-    setItemCount((prev) => prev + 1);
-  };
-
-  const itemCountDecrease = () => {
-    if (itemCount === 0) return;
-    setItemCount((prev) => prev - 1);
+  const { cartItems, addToCart, removeFromCart } = useContext(StoreContext);
+  const itemCountIncrease = (id) => addToCart(id);
+  const itemCountDecrease = (id) => {
+    if (!cartItems[id]) return;
+    removeFromCart(id);
   };
 
   return (
@@ -32,14 +30,14 @@ const FoodItems = ({ id, name, price, image, description }) => {
 
           <div className="flex items-center  gap-2">
             <span
-              onClick={itemCountDecrease}
+              onClick={() => itemCountDecrease(id)}
               className="bg-red-500/10 rounded-full p-1"
             >
               <FaMinus className="text-red-500" />
             </span>
             <span
               className="flex justify-center items-center gap-2 border rounded-2xl hover:bg-gray-200 duration-150 p-2 md:p-0.5 px-5 md:px-2 whitespace-nowrap"
-              onClick={itemCountIncrease}
+              onClick={() => itemCountIncrease(id)}
             >
               <span className="hidden md:block">Add to cart</span>
 
@@ -48,12 +46,12 @@ const FoodItems = ({ id, name, price, image, description }) => {
               </span>
             </span>
             <span
-              onClick={itemCountIncrease}
+              onClick={() => itemCountIncrease(id)}
               className="bg-green-500/10 rounded-full p-1"
             >
               <FaPlus className="text-green-400" />
             </span>
-            <p className="text-2xl">{itemCount}</p>
+            <p className="text-2xl">{cartItems[id] || 0}</p>
           </div>
         </div>
       </div>
