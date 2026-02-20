@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-:root {
+@theme {
   --font-outfit: "Outfit", sans-serif;
   --font-chicle: "Chicle", serif;
   --font-pacifico: "Pacifico", cursive;

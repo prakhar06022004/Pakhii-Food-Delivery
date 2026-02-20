@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { IoMdCart } from "react-icons/io";
-import { GoDotFill } from "react-icons/go";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
+import { StoreContext } from "../../Context/StoreContext";
 
 function Navbar() {
+  const { cartItems } = useContext(StoreContext);
+
+  const getTotalCartCount = () => {
+    return Object.values(cartItems).reduce((acc, curr) => acc + curr, 0);
+  };
+
   const [menu, setMenu] = useState("Home");
   const navigate = useNavigate();
   const navItemClass = (item) =>
@@ -70,10 +76,12 @@ function Navbar() {
 
         <div className="relative" onClick={() => navigate("/cart")}>
           <IoMdCart size={28} className="cursor-pointer" />
-          <GoDotFill
-            color={"#fc8428"}
-            className="absolute -top-2.5 -right-1.25"
-          />
+
+          {getTotalCartCount() > 0 && (
+            <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+              {getTotalCartCount()}
+            </span>
+          )}
         </div>
         <button className="border border-gray-500 text-gray-600 px-2 py-1 rounded-2xl cursor-pointer hover:bg-gray-200 duration-150 whitespace-nowrap">
           Sign In
