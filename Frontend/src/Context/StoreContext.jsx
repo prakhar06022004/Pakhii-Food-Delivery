@@ -26,11 +26,20 @@ const StoreProvider = ({ children }) => {
     });
   };
 
+  const completeRemoveCart = (itemId) => {
+    setCartItems((prev) => {
+      const updateCart = { ...prev };
+      delete updateCart[itemId];
+      return updateCart;
+    });
+  };
+
   const contextValue = {
     food_list,
     addToCart,
     removeFromCart,
     cartItems,
+    completeRemoveCart,
   };
 
   return (

@@ -8,13 +8,13 @@ function Cart() {
   const { cartItems } = useContext(StoreContext);
   const navigate = useNavigate();
   return (
-    <div className="max-w-7xl m-auto bg-gray-100 p-3 rounded-2xl mt-2 min-h-screen">
+    <div className="max-w-7xl m-auto bg-gray-100 p-3 rounded-2xl mt-2 min-h-[calc(100vh-70px)]">
       <FaArrowLeftLong
         size={20}
         onClick={() => navigate("/")}
         className="cursor-pointer"
       />
-      {Object.values(cartItems).some((qty,idx,arr) => qty > 0) ? (
+      {Object.values(cartItems).some((qty, idx, arr) => qty > 0) ? (
         <div className="p-2 md:p-5">
           {food_list.map((foodItems) => {
             if (cartItems[foodItems._id] > 0) {
@@ -27,7 +27,7 @@ function Cart() {
           })}
         </div>
       ) : (
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex justify-center items-center min-h-[calc(100vh-70px)]">
           <p>No items added</p>
         </div>
       )}
