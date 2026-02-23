@@ -17,46 +17,51 @@ const CartItems = ({ item, qty }) => {
     removeFromCart(id);
   };
   return (
-    <div className="mt-5 flex items-center justify-between bg-gray-50 py-4 px-2 shadow-2xs select-none">
-      <div className="flex items-center gap-4 md:gap-12 flex-nowrap">
-        <img
-          className="w-16 h-16 md:w-22 md:h-22 object-cover rounded-2xl shadow-xs shadow-gray-500"
-          src={item?.image}
-          alt={item?.name}
-        />
-        <div className="flex flex-col gap-2 text-lg">
-          <p className="font-semibold">{item?.name}</p>
-          <p className="font-semibold text-orange-500">${item?.price}</p>
+    <>
+      <div className="mt-5 flex items-center justify-between bg-gray-50 py-4 px-2 shadow-2xs select-none">
+        <div className="flex items-center gap-4 md:gap-12 flex-nowrap">
+          <img
+            className="w-16 h-16 md:w-22 md:h-22 object-cover rounded-2xl shadow-xs shadow-gray-500"
+            src={item?.image}
+            alt={item?.name}
+          />
+          <div className="flex flex-col gap-2 text-lg">
+            <p className="font-semibold">{item?.name}</p>
+            <p className="font-semibold text-orange-500">${item?.price}</p>
+          </div>
+          <div className="w-65 font-outfit text-lg hidden md:block text-gray-600">
+            {item?.description}
+          </div>
         </div>
-        <div className="w-65 font-outfit text-lg hidden md:block text-gray-600">
-          {item?.description}
+        <div className="flex flex-col sm:flex-row items-center rounded-2xl px-1">
+          <div className="flex items-center gap-2 bg-gray-100 mr-4">
+            <span
+              onClick={() => itemCountDecrease(item._id)}
+              className="bg-red-500/10 rounded-full p-1 cursor-pointer"
+            >
+              <FaMinus className="text-red-500" />
+            </span>
+            <p className="text-lg">{qty}</p>
+            <span
+              onClick={() => itemCountIncrease(item._id)}
+              className="bg-green-500/10 rounded-full p-1 cursor-pointer"
+            >
+              <FaPlus className="text-green-400" />
+            </span>
+          </div>
+          <span
+            className="cursor-pointer mt-3 sm:mt-0"
+            title="remove item"
+            onClick={() => completeRemoveCart(item._id)}
+          >
+            <RiDeleteBin6Line size={22} className="text-red-600" />
+          </span>
         </div>
       </div>
-      <div className="flex flex-col sm:flex-row items-center rounded-2xl px-1">
-        <div className="flex items-center gap-2 bg-gray-100 mr-4">
-          <span
-            onClick={() => itemCountDecrease(item._id)}
-            className="bg-red-500/10 rounded-full p-1 cursor-pointer"
-          >
-            <FaMinus className="text-red-500" />
-          </span>
-          <p className="text-lg">{qty}</p>
-          <span
-            onClick={() => itemCountIncrease(item._id)}
-            className="bg-green-500/10 rounded-full p-1 cursor-pointer"
-          >
-            <FaPlus className="text-green-400" />
-          </span>
-        </div>
-        <span
-          className="cursor-pointer mt-3 sm:mt-0"
-          title="remove item"
-          onClick={() => completeRemoveCart(item._id)}
-        >
-          <RiDeleteBin6Line size={22} className="text-red-600" />
-        </span>
+      <div className="shadow-2xs bg-orange-100 shadow-gray-300 p-2 mt-5">
+        <p>f</p>
       </div>
-    </div>
+    </>
   );
 };
 

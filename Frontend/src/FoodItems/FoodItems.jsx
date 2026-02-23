@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { assets } from "../assets/frontend_assets/assets";
 import { FaOpencart } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
@@ -16,7 +16,11 @@ const FoodItems = ({ id, name, price, image, description }) => {
   return (
     <div className="cursor-pointer select-none">
       <div>
-        <img src={image} alt={name} className="rounded-2xl w-full" />
+        <img
+          src={image}
+          alt={name}
+          className="rounded-2xl w-full h-50 object-cover"
+        />
       </div>
       <div className="p-3">
         <div className="md:flex justify-between">

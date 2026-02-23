@@ -33,6 +33,7 @@ const StoreProvider = ({ children }) => {
       return updateCart;
     });
   };
+  const [search, setSearch] = useState("");
 
   const contextValue = {
     food_list,
@@ -40,6 +41,8 @@ const StoreProvider = ({ children }) => {
     removeFromCart,
     cartItems,
     completeRemoveCart,
+    search,
+    setSearch,
   };
 
   return (
