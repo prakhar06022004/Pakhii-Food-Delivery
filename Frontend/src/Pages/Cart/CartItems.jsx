@@ -50,9 +50,10 @@ const CartItems = ({ item, qty }) => {
         </div>
         <span
           className="cursor-pointer mt-3 sm:mt-0"
-          onClick={()=>completeRemoveCart(item._id)}
+          title="remove item"
+          onClick={() => completeRemoveCart(item._id)}
         >
-          <RiDeleteBin6Line size={20} className="text-gray-700" />
+          <RiDeleteBin6Line size={22} className="text-red-600" />
         </span>
       </div>
     </div>
