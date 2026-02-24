@@ -4,6 +4,8 @@
   --font-outfit: "Outfit", sans-serif;
   --font-chicle: "Chicle", serif;
   --font-pacifico: "Pacifico", cursive;
+    --font-poppins: "Poppins", sans-serif;
+
 }
 
 .scrollbar-hide::-webkit-scrollbar {
