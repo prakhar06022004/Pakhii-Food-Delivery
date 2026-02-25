@@ -3,7 +3,8 @@ import { food_list } from "../assets/frontend_assets/assets";
 export const StoreContext = createContext(null);
 const StoreProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
-
+  const [search, setSearch] = useState("");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const addToCart = (itemId) => {
     if (!cartItems[itemId]) {
       setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
@@ -33,7 +34,6 @@ const StoreProvider = ({ children }) => {
       return updateCart;
     });
   };
-  const [search, setSearch] = useState("");
 
   const contextValue = {
     food_list,
@@ -43,6 +43,8 @@ const StoreProvider = ({ children }) => {
     completeRemoveCart,
     search,
     setSearch,
+    sidebarOpen,
+    setSidebarOpen,
   };
 
   return (

@@ -4,8 +4,9 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { useLocation, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../Context/StoreContext";
 import { IoIosSearch } from "react-icons/io";
+import { navLinks } from "../NavOptionLinks/NavOptionLinks";
 
-function Navbar() {
+function Navbar({ setSidebarOpen }) {
   const { cartItems } = useContext(StoreContext);
 
   const { search, setSearch } = useContext(StoreContext);
@@ -50,31 +51,17 @@ function Navbar() {
           </h2>
         </div>
         <ul className="hidden md:flex gap-10 text-gray-600 whitespace-nowrap">
-          <li
-            onClick={() => {
-              setMenu("Home");
-              navigate("/");
-            }}
-            className={navItemClass("Home")}
-          >
-            Home
-          </li>
-
-          <li onClick={() => setMenu("Menu")} className={navItemClass("Menu")}>
-            Menu
-          </li>
-          <li
-            onClick={() => setMenu("Mobile-app")}
-            className={navItemClass("Mobile-app")}
-          >
-            Mobile-app
-          </li>
-          <li
-            onClick={() => setMenu("Contact us")}
-            className={navItemClass("Contact us")}
-          >
-            Contact us
-          </li>
+          {navLinks.map((options) => (
+            <li
+              onClick={() => {
+                setMenu(options.label);
+                navigate(options.path);
+              }}
+              className={navItemClass(options.label)}
+            >
+              {options.label}
+            </li>
+          ))}
         </ul>
 
         <div className="flex gap-3 sm:gap-7 text-gray-600 justify-center items-center">
@@ -90,7 +77,11 @@ function Navbar() {
           <button className="border border-gray-500 text-gray-600 px-2 py-1 rounded-2xl cursor-pointer hover:bg-gray-200 duration-150 whitespace-nowrap">
             Sign In
           </button>
-          <RxHamburgerMenu className="md:hidden cursor-pointer" size={25} />
+          <RxHamburgerMenu
+            className="md:hidden cursor-pointer"
+            size={25}
+            onClick={() => setSidebarOpen(true)}
+          />
         </div>
       </div>
       {location.pathname === "/" && (
