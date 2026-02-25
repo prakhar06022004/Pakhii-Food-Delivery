@@ -21,37 +21,37 @@ const Footer = () => {
           </div>
         </div>
         <div className="flex flex-col justify-center items-center gap-0 md:gap-2">
-          <h1 className="font-semibold text-lg font-outfit ">COMPANY</h1>
-          <ul className="flex md:flex-col justify-center items-center gap-3 md:gap-0 font-outfit underline text-gray-800">
+          <h1 className="font-semibold text-xl font-outfit ">COMPANY</h1>
+          <ul className="flex md:flex-col justify-center items-center gap-3 md:gap-0 font-outfit underline text-gray-800 md:text-lg">
             <li>Home</li>
             <li>About us</li>
             <li>Delivery</li>
             <li>Privacy policy</li>
           </ul>
         </div>
-        <div className="flex flex-col justify-center gap-2 items-center font-outfit mt-5">
+        <div className="flex flex-col justify-center md:gap-2 items-center font-outfit mt-5">
           <h1 className="font-semibold text-xl font-outfit">GET IN TOUCH</h1>
           <p className="text-gray-800">+91 8295978959</p>
           <p className="text-gray-800">playingprakhar122@gmail.com</p>
         </div>
-        
-      </div><div className="md:flex hidden gap-4">
-          <img
-            src={facebook_icon}
-            alt="fb_icon"
-            className="w-8 h-8 invert brightness-100"
-          />
-          <img
-            src={twitter_icon}
-            alt="twitter_icon"
-            className="w-8 h-8 invert brightness-100"
-          />
-          <img
-            src={linkedin_icon}
-            alt="linkedin_icon"
-            className="w-8 h-8 invert brightness-100"
-          />
-        </div>
+      </div>
+      <div className="flex justify-center gap-4 mt-5">
+        <img
+          src={facebook_icon}
+          alt="fb_icon"
+          className="w-8 h-8 invert brightness-100"
+        />
+        <img
+          src={twitter_icon}
+          alt="twitter_icon"
+          className="w-8 h-8 invert brightness-100"
+        />
+        <img
+          src={linkedin_icon}
+          alt="linkedin_icon"
+          className="w-8 h-8 invert brightness-100"
+        />
+      </div>
       <hr color="white" className="w-full mt-5 text-gray-500" />
       <p className="text-center text-sm text-gray-600 pt-5">
         © 2026 Pakhii Delivery • All Rights Reserved
