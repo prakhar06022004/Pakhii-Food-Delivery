@@ -59,7 +59,7 @@ const CartItems = ({ item, qty }) => {
         </div>
       </div>
       <div className="shadow-2xs bg-orange-100 shadow-gray-300 p-2 mt-5">
-        <p>f</p>
+        <p>Total</p>
       </div>
     </>
   );

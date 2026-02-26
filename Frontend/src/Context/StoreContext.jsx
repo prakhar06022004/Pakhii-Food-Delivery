@@ -1,17 +1,18 @@
-import { createContext, useState } from "react";
+import { createContext, useCallback, useState } from "react";
 import { food_list } from "../assets/frontend_assets/assets";
 export const StoreContext = createContext(null);
 const StoreProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
   const [search, setSearch] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const addToCart = (itemId) => {
+
+  const addToCart = useCallback((itemId) => {
     if (!cartItems[itemId]) {
       setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
     } else {
       setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
     }
-  };
+  }, [cartItems]);
 
   const removeFromCart = (itemId) => {
     setCartItems((prev) => {
