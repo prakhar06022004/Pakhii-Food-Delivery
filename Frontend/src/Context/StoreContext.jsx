@@ -7,34 +7,32 @@ const StoreProvider = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const addToCart = useCallback((itemId) => {
-    if (!cartItems[itemId]) {
-      setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
-    } else {
-      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
-    }
-  }, [cartItems]);
+    setCartItems((prev) => {
+      if (!prev[itemId]) {
+        return { ...prev, [itemId]: 1 };
+      } else {
+        return { ...prev, [itemId]: prev[itemId] + 1 };
+      }
+    });
+  }, []);
 
-  const removeFromCart = (itemId) => {
+  const removeFromCart = useCallback((itemId) => {
     setCartItems((prev) => {
       if (!prev[itemId]) return prev;
+      const updateCart = { ...prev, [itemId]: prev[itemId] - 1 };
 
-      const updatedCart = { ...prev, [itemId]: prev[itemId] - 1 };
-
-      if (updatedCart[itemId] <= 0) {
-        delete updatedCart[itemId];
-      }
-
-      return updatedCart;
+      if (updateCart[itemId] <= 0) delete updateCart[itemId];
+      return updateCart;
     });
-  };
+  }, []);
 
-  const completeRemoveCart = (itemId) => {
+  const completeRemoveCart = useCallback((itemId) => {
     setCartItems((prev) => {
       const updateCart = { ...prev };
       delete updateCart[itemId];
       return updateCart;
     });
-  };
+  }, []);
 
   const contextValue = {
     food_list,

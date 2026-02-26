@@ -59,7 +59,9 @@ function Navbar({ setSidebarOpen }) {
               }}
               className={navItemClass(options.label)}
             >
-              {options.label}
+              
+                <span>{options.label}</span>
+              
             </li>
           ))}
         </ul>

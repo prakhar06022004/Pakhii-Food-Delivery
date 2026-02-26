@@ -7,6 +7,7 @@ import { StoreContext } from "../../Context/StoreContext";
 import SideBarOpenComp from "../../Components/SidebarOpen/SideBarOpenComp";
 
 function Home() {
+  
   const [category, setCategory] = useState("All");
   const { setSidebarOpen, sidebarOpen } = useContext(StoreContext);
   return (
