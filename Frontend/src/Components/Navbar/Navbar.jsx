@@ -6,7 +6,7 @@ import { StoreContext } from "../../Context/StoreContext";
 import { IoIosSearch } from "react-icons/io";
 import { navLinks } from "../NavOptionLinks/NavOptionLinks";
 
-function Navbar({ setSidebarOpen }) {
+function Navbar({ setSidebarOpen, setSignInPopUp }) {
   const { cartItems } = useContext(StoreContext);
 
   const { search, setSearch } = useContext(StoreContext);
@@ -59,9 +59,7 @@ function Navbar({ setSidebarOpen }) {
               }}
               className={navItemClass(options.label)}
             >
-              
-                <span>{options.label}</span>
-              
+              <span>{options.label}</span>
             </li>
           ))}
         </ul>
@@ -76,7 +74,10 @@ function Navbar({ setSidebarOpen }) {
               </span>
             )}
           </div>
-          <button className="border border-gray-500 text-gray-600 px-2 py-1 rounded-2xl cursor-pointer hover:bg-gray-200 duration-150 whitespace-nowrap">
+          <button
+            className="border border-gray-500 text-gray-600 px-2 py-1 rounded-2xl cursor-pointer hover:bg-gray-200 duration-150 whitespace-nowrap"
+            onClick={() => setSignInPopUp(true)}
+          >
             Sign In
           </button>
           <RxHamburgerMenu

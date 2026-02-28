@@ -5,7 +5,7 @@ const StoreProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
   const [search, setSearch] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
+  const [signInPopUp, setSignInPopUp] = useState(false);
   const addToCart = useCallback((itemId) => {
     setCartItems((prev) => {
       if (!prev[itemId]) {
@@ -44,6 +44,8 @@ const StoreProvider = ({ children }) => {
     setSearch,
     sidebarOpen,
     setSidebarOpen,
+    setSignInPopUp,
+    signInPopUp
   };
 
   return (
