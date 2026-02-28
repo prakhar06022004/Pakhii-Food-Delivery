@@ -1,4 +1,8 @@
 function Header() {
+  const scrollToMenu = () => {
+  const section = document.getElementById("menu-section");
+  section?.scrollIntoView({ behavior: "smooth" });
+};
   return (
     <>
       <div className="w-full max-w-6xl mx-auto md:h-110 h-60 sm:h-80 bg-[url('/header_img.png')] mt-2 bg-cover bg-center rounded-2xl p-5 relative">
@@ -14,7 +18,7 @@ function Header() {
             Choose your favorite meal from our carefully crafted menu and enjoy
             delicious food delivered straight to your door.
           </p>
-          <button className="border-none bg-white py-2 px-5 rounded-3xl w-fit mt-3 md:mt-20 sm:mt-10 ml-0 md:ml-5 sm:ml-0 text-gray-800 cursor-pointer">
+          <button className="border-none bg-white py-2 px-5 rounded-3xl w-fit mt-3 md:mt-20 sm:mt-10 ml-0 md:ml-5 sm:ml-0 text-gray-800 cursor-pointer" onClick={scrollToMenu}>
             View Menu
           </button>
         </div>

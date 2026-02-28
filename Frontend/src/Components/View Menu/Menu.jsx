@@ -12,7 +12,10 @@ function Menu({ category, setCategory }) {
           satisfying today.
         </p>
       </div>
-      <div className="flex text-center overflow-x-auto scrollbar-hide gap-8">
+      <div
+        className="flex text-center overflow-x-auto scrollbar-hide gap-8"
+        id="menu-section"
+      >
         {menu_list.map((menuItem) => (
           <div
             className="cursor-pointer flex shrink-0 flex-col"
