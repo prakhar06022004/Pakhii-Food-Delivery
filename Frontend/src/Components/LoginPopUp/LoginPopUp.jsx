@@ -4,20 +4,22 @@ import { RxCross2 } from "react-icons/rx";
 const LoginPopUp = ({ setSignInPopUp }) => {
   const [currState, setCurrState] = useState("Login");
   const [loginInfo, setLoginInfo] = useState({ email: "", password: "" });
-  const [singUpInfo, setSingUpInfo] = useState({
+  const [signUpInfo, setSignUpInfo] = useState({
     name: "",
     email: "",
     password: "",
   });
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
   return (
     <div
-      className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-9999 select-none"
+      className="fixed inset-0 backdrop-blur-md flex items-center justify-center z-9999 select-none"
       onClick={() => setSignInPopUp(false)}
     >
       <div
-        className="relative bg-white p-5 rounded-lg shadow-xl max-w-2xl w-full 
-               opacity-0 animate-[zoomIn_0.25s_ease-out_forwards]"
+        className="relative bg-white px-6 py-12 rounded-lg max-w-2xl w-full opacity-0 animate-[zoomIn_0.25s_ease-out_forwards] shadow-[0_0_20px_rgba(0,0,0,0.5)]"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -28,40 +30,42 @@ const LoginPopUp = ({ setSignInPopUp }) => {
         </button>
 
         <h1 className="text-4xl font-bold text-green-600">{currState}...</h1>
-        <form className="mt-7">
+        <form className="mt-7" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-6">
             {currState === "SignUp" && (
               <input
                 type="text"
                 placeholder="Enter your name"
-                className="shadow-[0_0_15px_rgba(0,0,0,0.2)] py-2 px-4 rounded-2xl outline-none"
-                value={singUpInfo.name}
-                onChange={(e) => setSingUpInfo(e.target.value)}
+                className="shadow-[0_0_15px_rgba(0,0,0,0.2)] p-3 rounded-2xl outline-none"
+                value={signUpInfo.name}
+                onChange={(e) =>
+                  setSignUpInfo({ ...signUpInfo, name: e.target.value })
+                }
               />
             )}
 
             <input
               type="email"
               placeholder="Enter your email"
-              className="shadow-[0_0_15px_rgba(0,0,0,0.2)] py-2 px-4 rounded-2xl outline-none"
-              value={currState === "Login" ? loginInfo.email : singUpInfo.email}
+              className="shadow-[0_0_15px_rgba(0,0,0,0.2)] p-3 rounded-2xl outline-none"
+              value={currState === "Login" ? loginInfo.email : signUpInfo.email}
               onChange={(e) => {
                 currState === "Login"
-                  ? setLoginInfo(e.target.value)
-                  : setSingUpInfo(e.target.value);
+                  ? setLoginInfo({ ...loginInfo, email: e.target.value })
+                  : setSignUpInfo({ ...signUpInfo, email: e.target.value });
               }}
             />
             <input
               type="password"
               placeholder="Enter your password"
-              className="shadow-[0_0_15px_rgba(0,0,0,0.2)] py-2 px-4 rounded-2xl outline-none"
+              className="shadow-[0_0_15px_rgba(0,0,0,0.2)] p-3 rounded-2xl outline-none"
               value={
-                currState === "Login" ? loginInfo.password : singUpInfo.password
+                currState === "Login" ? loginInfo.password : signUpInfo.password
               }
               onChange={(e) => {
                 currState === "Login"
-                  ? setLoginInfo(e.target.value)
-                  : setSingUpInfo(e.target.value);
+                  ? setLoginInfo({ ...loginInfo, password: e.target.value })
+                  : setSignUpInfo({ ...signUpInfo, password: e.target.value });
               }}
             />
 
@@ -75,8 +79,8 @@ const LoginPopUp = ({ setSignInPopUp }) => {
           Forget password?
         </p>
         <p className="text-center">OR</p>
-        <div className="flex justify-center items-center mt-2">
-          <p className="text-[16px] mr-1 text-gray-700">
+        <div className="flex justify-center items-center mt-5">
+          <p className="text-[17px] mr-1 text-gray-700">
             {currState === "Login"
               ? "Don't have an account?"
               : "Already have an account?"}
