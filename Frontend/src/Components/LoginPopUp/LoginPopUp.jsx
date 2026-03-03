@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
+import { MdLogin } from "react-icons/md";
+import { LiaSignInAltSolid } from "react-icons/lia";
 
 const LoginPopUp = ({ setSignInPopUp }) => {
   const [currState, setCurrState] = useState("Login");
@@ -31,7 +33,17 @@ const LoginPopUp = ({ setSignInPopUp }) => {
         </button>
 
         <h1 className="text-4xl font-bold text-orange-500 mt-8 md:mt-0">
-          {currState}...
+          {currState === "Login" ? (
+            <span className="flex items-center gap-3">
+              <MdLogin />
+              {currState}...
+            </span>
+          ) : (
+            <span className="flex items-center gap-3">
+              <LiaSignInAltSolid />
+              {currState}...
+            </span>
+          )}
         </h1>
         <form className="mt-7" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-6">
@@ -93,7 +105,7 @@ const LoginPopUp = ({ setSignInPopUp }) => {
             onClick={() =>
               setCurrState(currState === "Login" ? "SignUp" : "Login")
             }
-            className="text-sm underline cursor-pointer"
+            className="text-lg underline cursor-pointer text-orange-500"
           >
             {currState === "Login" ? "SignUp" : "LogIn"}
           </span>

@@ -44,7 +44,7 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
       <div className="flex font-outfit md:justify-around justify-between py-3 p-4 items-center select-none ">
         <div>
           <h2
-            className="text-2xl sm:text-2xl text-orange-500 font-bold font-chewy cursor-pointer whitespace-nowrap"
+            className="text-2xl sm:text-3xl text-orange-500 font-bold font-chewy cursor-pointer whitespace-nowrap"
             onClick={() => navigate("/")}
           >
             Pakhii Delivery

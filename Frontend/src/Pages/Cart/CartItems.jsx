@@ -25,9 +25,9 @@ const CartItems = ({ item, qty }) => {
             src={item?.image}
             alt={item?.name}
           />
-          <div className="flex flex-col gap-2 text-lg">
+          <div className="flex flex-col gap-2 text-lg w-35">
             <p className="font-semibold">{item?.name}</p>
-            <p className="font-semibold text-orange-500">${item?.price}</p>
+            <p className="font-semibold text-orange-500">${item?.price*qty}</p>
           </div>
           <div className="w-65 font-outfit text-lg hidden md:block text-gray-600">
             {item?.description}
@@ -58,9 +58,7 @@ const CartItems = ({ item, qty }) => {
           </span>
         </div>
       </div>
-      <div className="shadow-2xs bg-orange-100 shadow-gray-300 p-2 mt-5">
-        <p>Total</p>
-      </div>
+
     </>
   );
 };

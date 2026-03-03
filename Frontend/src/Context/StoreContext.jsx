@@ -45,7 +45,7 @@ const StoreProvider = ({ children }) => {
     sidebarOpen,
     setSidebarOpen,
     setSignInPopUp,
-    signInPopUp
+    signInPopUp,
   };
 
   return (

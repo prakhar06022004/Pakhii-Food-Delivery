@@ -25,6 +25,37 @@ function Cart() {
               );
             }
           })}
+          <div className="shadow-2xs flex justify-between p-2 mt-5 w-full">
+            <div className="flex flex-col w-100 gap-2">
+              <p className="font-outfit font-semibold text-xl">Cart Totals</p>
+              <div className="flex justify-between">
+                <p>Subtotal</p>
+                <span>{0}</span>
+              </div>
+              <hr />
+              <div className="flex justify-between">
+                <p>Delivery Fee</p>
+                <span>{2}</span>
+              </div>
+              <hr />
+              <div className="font-semibold flex justify-between">
+                <p>Total</p>
+                <b>{0}</b>
+              </div>
+              <button className="w-fit bg-orange-500 text-white py-1.5 px-4 rounded-lg mt-2">Proceed to checkout</button>
+            </div>
+            <div className="w-fit text-gray-700 flex flex-col gap-2">
+              <p>If you have a promo code, Enter it here</p>
+              <div className="w-full">
+                <input
+                  type="text"
+                  placeholder="promo code"
+                  className="p-2 bg-gray-200 w-100 outline-none text-gray-700"
+                />
+                <button className="bg-black text-white p-2 w-20">Submit</button>
+              </div>
+            </div>
+          </div>
         </div>
       ) : (
         <div className="flex justify-center items-center min-h-[calc(100vh-70px)]">
