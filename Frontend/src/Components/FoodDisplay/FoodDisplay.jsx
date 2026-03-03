@@ -11,25 +11,31 @@ const FoodDisplay = ({ category }) => {
   );
   return (
     <>
-      <p className="font-medium text-2xl sm:text-3xl text-gray-800 max-w-6xl m-auto mb-5">
-        Top dishes near you
-      </p>
-      <div className="w-full max-w-7xl m-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {filterSearch?.map((foodList) => {
-          if (category === "All" || category === foodList.category) {
-            return (
-              <FoodItems
-                key={foodList._id}
-                id={foodList._id}
-                name={foodList.name}
-                price={foodList.price}
-                description={foodList.description}
-                image={foodList.image}
-              />
-            );
-          }
-        })}
-      </div>
+      {filterSearch.length === 0 ? (
+        <p className="text-center p-10 text-lg text-gray-800">No items found</p>
+      ) : (
+        <>
+          <p className="font-medium text-2xl sm:text-3xl text-gray-800 max-w-6xl m-auto mb-5">
+            Top dishes near you
+          </p>
+          <div className="w-full max-w-7xl m-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {filterSearch?.map((foodList) => {
+              if (category === "All" || category === foodList.category) {
+                return (
+                  <FoodItems
+                    key={foodList._id}
+                    id={foodList._id}
+                    name={foodList.name}
+                    price={foodList.price}
+                    description={foodList.description}
+                    image={foodList.image}
+                  />
+                );
+              }
+            })}
+          </div>
+        </>
+      )}
     </>
   );
 };

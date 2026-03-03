@@ -13,13 +13,14 @@ const LoginPopUp = ({ setSignInPopUp }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+
   return (
     <div
-      className="fixed inset-0 backdrop-blur-md flex items-center justify-center z-9999 select-none"
+      className="fixed inset-0 backdrop-blur-md flex items-start md:items-center justify-center z-9999 select-none p-1"
       onClick={() => setSignInPopUp(false)}
     >
       <div
-        className="relative bg-white px-6 py-12 rounded-lg max-w-2xl w-full opacity-0 animate-[zoomIn_0.25s_ease-out_forwards] shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+        className="relative bg-white px-6 py-12 rounded-lg max-w-2xl w-full opacity-0 animate-[zoomIn_0.25s_ease-out_forwards] shadow-[0_0_20px_rgba(0,0,0,0.5)] h-screen md:h-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -29,7 +30,9 @@ const LoginPopUp = ({ setSignInPopUp }) => {
           <RxCross2 size={25} />
         </button>
 
-        <h1 className="text-4xl font-bold text-green-600">{currState}...</h1>
+        <h1 className="text-4xl font-bold text-orange-500 mt-8 md:mt-0">
+          {currState}...
+        </h1>
         <form className="mt-7" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-6">
             {currState === "SignUp" && (
