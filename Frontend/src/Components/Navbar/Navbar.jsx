@@ -5,8 +5,26 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../Context/StoreContext";
 import { IoIosSearch } from "react-icons/io";
 import { navLinks } from "../NavOptionLinks/NavOptionLinks";
-
+import { FaMicrophone } from "react-icons/fa";
 function Navbar({ setSidebarOpen, setSignInPopUp }) {
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  const recognition = new SpeechRecognition();
+
+  recognition.lang = "en-US";
+  recognition.continuous = false;
+
+  const startVoiceSearch = () => {
+    
+    recognition.start();
+
+    recognition.onresult = (event) => {
+      const voiceText = event.results[0][0].transcript;
+
+      setSearch(voiceText); // yaha voice text input me aa jayega
+    };
+  };
   const { cartItems } = useContext(StoreContext);
 
   const { search, setSearch } = useContext(StoreContext);
@@ -89,7 +107,7 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
       </div>
       {location.pathname === "/" && (
         <div className="flex items-center justify-center max-w-2xl md:max-w-2xl lg:max-w-4xl m-auto px-4">
-          <div className="flex items-center  gap-2 p-2 rounded-[10px] w-full shadow-[0_0_10px_rgba(0,0,0,0.15)] bg-white">
+          <div className="flex items-center gap-2 p-2 rounded-[10px] w-full shadow-[0_0_10px_rgba(0,0,0,0.15)] bg-white">
             <IoIosSearch size={22} color="gray" />
 
             <input
@@ -98,6 +116,12 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
               placeholder="Search items..."
               className="outline-none w-full placeholder-gray-700"
               onChange={(e) => setSearch(e.target.value)}
+            />
+
+            <FaMicrophone
+              size={18}
+              className="cursor-pointer text-gray-600"
+              onClick={startVoiceSearch}
             />
           </div>
         </div>
