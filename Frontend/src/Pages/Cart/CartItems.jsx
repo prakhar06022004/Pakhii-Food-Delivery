@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 const CartItems = ({ item, qty }) => {
-  const { addToCart, removeFromCart, completeRemoveCart } =
+  const { addToCart, removeFromCart, completeRemoveCart, getTotalAmount } =
     useContext(StoreContext);
 
   const itemCountIncrease = (id) => {
@@ -27,7 +27,9 @@ const CartItems = ({ item, qty }) => {
           />
           <div className="flex flex-col gap-2 text-lg w-35">
             <p className="font-semibold">{item?.name}</p>
-            <p className="font-semibold text-orange-500">${item?.price*qty}</p>
+            <p className="font-semibold text-orange-500">
+              ${item?.price * qty}
+            </p>
           </div>
           <div className="w-65 font-outfit text-lg hidden md:block text-gray-600">
             {item?.description}
@@ -58,7 +60,6 @@ const CartItems = ({ item, qty }) => {
           </span>
         </div>
       </div>
-
     </>
   );
 };

@@ -26,22 +26,22 @@ const LoginPopUp = ({ setSignInPopUp }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="absolute right-3 top-3 cursor-pointer"
+          className="absolute right-5 top-5 cursor-pointer"
           onClick={() => setSignInPopUp(false)}
         >
-          <RxCross2 size={25} />
+          <RxCross2 size={28} />
         </button>
 
         <h1 className="text-4xl font-bold text-orange-500 mt-8 md:mt-0">
           {currState === "Login" ? (
             <span className="flex items-center gap-3">
               <MdLogin />
-              {currState}...
+              {currState}
             </span>
           ) : (
             <span className="flex items-center gap-3">
               <LiaSignInAltSolid />
-              {currState}...
+              {currState}
             </span>
           )}
         </h1>
@@ -91,7 +91,7 @@ const LoginPopUp = ({ setSignInPopUp }) => {
         </form>
 
         <p className="underline text-gray-700 cursor-pointer p-2 text-right">
-          Forget password?
+          Forgot password?
         </p>
         <p className="text-center">OR</p>
         <div className="flex justify-center items-center mt-5">

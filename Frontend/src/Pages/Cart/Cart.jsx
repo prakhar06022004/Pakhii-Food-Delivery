@@ -5,7 +5,7 @@ import { StoreContext } from "../../Context/StoreContext";
 import { food_list } from "../../assets/frontend_assets/assets";
 import CartItems from "./CartItems";
 function Cart() {
-  const { cartItems } = useContext(StoreContext);
+  const { cartItems, getTotalAmount } = useContext(StoreContext);
   const navigate = useNavigate();
   return (
     <div className="max-w-7xl m-auto bg-gray-100 p-3 rounded-2xl mt-2 min-h-[calc(100vh-70px)]">
@@ -25,26 +25,46 @@ function Cart() {
               );
             }
           })}
-          <div className="shadow-2xs flex justify-between p-2 mt-5 w-full">
-            <div className="flex flex-col w-100 gap-2">
-              <p className="font-outfit font-semibold text-xl">Cart Totals</p>
-              <div className="flex justify-between">
-                <p>Subtotal</p>
-                <span>{0}</span>
+
+          <div className="shadow-2xs md:flex flex-col md:flex-row justify-between p-2 mt-5 w-full">
+            <div className="flex flex-col md:w-100 gap-2">
+              <div className="w-fit text-gray-700 flex flex-col gap-2 md:hidden">
+                <p>If you have a promo code, Enter it here</p>
+                <div className="w-full rounded-2xl">
+                  <input
+                    type="text"
+                    placeholder="promo code"
+                    className="p-1 bg-gray-200 outline-none text-gray-700"
+                  />
+                  <button className="bg-gray-700 text-white p-1 w-20">
+                    Submit
+                  </button>
+                </div>
               </div>
-              <hr />
+
+              <p className="font-outfit font-semibold text-xl mt-5 md:mt-0">
+                Cart Totals
+              </p>
               <div className="flex justify-between">
-                <p>Delivery Fee</p>
-                <span>{2}</span>
+                <p className="text-gray-800">Subtotal</p>
+                <span>${getTotalAmount()}</span>
               </div>
-              <hr />
-              <div className="font-semibold flex justify-between">
+              <hr className="text-gray-500" />
+              <div className="flex justify-between">
+                <p className="text-gray-800">Delivery Fee</p>
+                <span>${2}</span>
+              </div>
+              <hr className="text-gray-500" />
+              <div className="font-semibold flex justify-between font-mono text-lg">
                 <p>Total</p>
-                <b>{0}</b>
+                <span>${getTotalAmount()}</span>
               </div>
-              <button className="w-fit bg-orange-500 text-white py-1.5 px-4 rounded-lg mt-2">Proceed to checkout</button>
+              <button className="w-fit bg-orange-500 text-white py-1.5 px-4 rounded-lg mt-2">
+                Proceed to checkout
+              </button>
             </div>
-            <div className="w-fit text-gray-700 flex flex-col gap-2">
+
+            <div className="w-fit text-gray-700 flex-col gap-2 hidden md:flex">
               <p>If you have a promo code, Enter it here</p>
               <div className="w-full">
                 <input
