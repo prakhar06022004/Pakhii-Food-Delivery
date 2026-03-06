@@ -68,7 +68,7 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
       }`;
 
   return (
-    <div className="sticky top-0 z-99 bg-white pb-2">
+    <div className="sticky top-0 z-999 bg-white pb-2">
       <div className="flex font-outfit md:justify-around justify-between py-3 p-4 items-center select-none ">
         <div>
           <h2
@@ -103,7 +103,7 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
             )}
           </div>
           <button
-            className="border border-gray-500 text-gray-600 px-2 py-1 rounded-2xl cursor-pointer hover:bg-gray-200 duration-150 whitespace-nowrap"
+            className="border border-gray-500 text-gray-600 px-2 py-1 rounded-2xl cursor-pointer hover:bg-gray-200 duration-150 whitespace-nowrap z-99999"
             onClick={() => setSignInPopUp(true)}
           >
             Sign In

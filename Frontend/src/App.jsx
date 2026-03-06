@@ -6,14 +6,20 @@ import PlaceOrder from "./Pages/PlaceOrder/PlaceOrder";
 import { useContext } from "react";
 import { StoreContext } from "./Context/StoreContext";
 import LoginPopUp from "./Components/LoginPopUp/LoginPopUp";
-
+import SideBarOpenComp from "../src/Components/SidebarOpen/SideBarOpenComp";
 function App() {
-  const { setSidebarOpen, signInPopUp, setSignInPopUp } =
+  const { setSidebarOpen, signInPopUp, sidebarOpen, setSignInPopUp } =
     useContext(StoreContext);
 
   return (
     <>
-      {signInPopUp && <LoginPopUp setSignInPopUp={setSignInPopUp}/>}
+      {signInPopUp && <LoginPopUp setSignInPopUp={setSignInPopUp} />}
+
+      <SideBarOpenComp
+        setSidebarOpen={setSidebarOpen}
+        sidebarOpen={sidebarOpen}
+      />
+      
       <div className="min-h-screen">
         <Navbar
           setSidebarOpen={setSidebarOpen}

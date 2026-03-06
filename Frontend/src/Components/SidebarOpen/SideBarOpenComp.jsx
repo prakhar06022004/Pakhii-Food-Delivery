@@ -10,7 +10,7 @@ const SideBarOpenComp = ({ sidebarOpen, setSidebarOpen }) => {
   return (
     <div
       className={`
-        fixed z-99 top-0 right-0 h-full bg-gray-300 shadow-xl transition-all duration-300 p-5 md:hidden flex flex-col items-center
+        fixed z-9999 top-0 right-0 h-full bg-gray-300 shadow-xl transition-all duration-300 p-5 md:hidden flex flex-col items-center
         ${sidebarOpen ? "w-1/2 sm:w-1/3 translate-x-0" : "w-1/2 translate-x-full"}
       `}
     >
