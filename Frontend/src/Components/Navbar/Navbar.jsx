@@ -7,6 +7,7 @@ import { IoIosSearch } from "react-icons/io";
 import { navLinks } from "../NavOptionLinks/NavOptionLinks";
 import { FaMicrophone } from "react-icons/fa";
 function Navbar({ setSidebarOpen, setSignInPopUp }) {
+  const [isListening, setIsListening] = useState(false);
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
 
@@ -16,13 +17,22 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
   recognition.continuous = false;
 
   const startVoiceSearch = () => {
-    
+    setIsListening(true);
+
     recognition.start();
 
     recognition.onresult = (event) => {
       const voiceText = event.results[0][0].transcript;
 
-      setSearch(voiceText); // yaha voice text input me aa jayega
+      setSearch(voiceText);
+      setIsListening(false);
+    };
+    //    recognition.onerror = () => {
+    //   setIsListening(false);   // error → mic OFF
+    // };
+
+    recognition.onend = () => {
+      setIsListening(false); // listening khatam → mic OFF
     };
   };
   const { cartItems } = useContext(StoreContext);
@@ -120,7 +130,9 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
 
             <FaMicrophone
               size={18}
-              className="cursor-pointer text-gray-600"
+              className={`cursor-pointer transition-colors duration-200
+    ${isListening ? "text-orange-500 animate-pulse" : "text-gray-600"}
+  `}
               onClick={startVoiceSearch}
             />
           </div>

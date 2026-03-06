@@ -36,7 +36,7 @@ function Cart() {
                     placeholder="promo code"
                     className="p-1 bg-gray-200 outline-none text-gray-700"
                   />
-                  <button className="bg-gray-700 text-white p-1 w-20">
+                  <button className="bg-gray-700 text-white p-1 w-20 cursor-pointer">
                     Submit
                   </button>
                 </div>
@@ -57,9 +57,9 @@ function Cart() {
               <hr className="text-gray-500" />
               <div className="font-semibold flex justify-between font-mono text-lg">
                 <p>Total</p>
-                <span>${getTotalAmount()}</span>
+                <span>${getTotalAmount()+2}</span>
               </div>
-              <button className="w-fit bg-orange-500 text-white py-1.5 px-4 rounded-lg mt-2">
+              <button className="w-fit bg-orange-500 text-white py-1.5 px-4 rounded-lg mt-2 cursor-pointer hover:bg-orange-600 duration-150" onClick={()=>navigate("/order")}>
                 Proceed to checkout
               </button>
             </div>
@@ -72,7 +72,9 @@ function Cart() {
                   placeholder="promo code"
                   className="p-2 bg-gray-200 w-100 outline-none text-gray-700"
                 />
-                <button className="bg-black text-white p-2 w-20">Submit</button>
+                <button className="bg-black text-white p-2 w-20 cursor-pointer">
+                  Submit
+                </button>
               </div>
             </div>
           </div>
