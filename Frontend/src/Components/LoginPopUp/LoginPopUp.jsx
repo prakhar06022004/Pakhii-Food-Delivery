@@ -5,8 +5,8 @@ import { LiaSignInAltSolid } from "react-icons/lia";
 
 const LoginPopUp = ({ setSignInPopUp }) => {
   const [currState, setCurrState] = useState("Login");
-  const [loginInfo, setLoginInfo] = useState({ email: "", password: "" });
-  const [signUpInfo, setSignUpInfo] = useState({
+  const [error, setError] = useState({ name: "", email: "", password: "" });
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
@@ -14,15 +14,40 @@ const LoginPopUp = ({ setSignInPopUp }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    let newErrors = {
+      name: "",
+      email: "",
+      password: "",
+    };
+    if (currState === "SignUp" && !formData.name) {
+      newErrors.name = "Please enter your name.";
+    }
+
+    if (!formData.email) {
+      newErrors.email = "Please enter your email address.";
+    }
+    if (!formData.password) {
+      newErrors.password = "Please enter your password.";
+    }
+    setError(newErrors);
+
+    console.log(formData);
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
     <div
-      className="fixed inset-0 backdrop-blur-md flex items-start md:items-center justify-center z-9999 select-none p-1"
+      className="fixed inset-0 backdrop-blur-md flex items-start md:items-center justify-center z-9999 select-none p-1 overflow-y-scroll"
       onClick={() => setSignInPopUp(false)}
     >
       <div
-        className="relative bg-white px-6 py-12 rounded-lg max-w-2xl w-full opacity-0 animate-[zoomIn_0.25s_ease-out_forwards] shadow-[0_0_20px_rgba(0,0,0,0.5)] h-screen md:h-auto"
+        className="relative bg-white px-6 py-12 rounded-lg max-w-2xl w-full opacity-0 animate-[zoomIn_0.25s_ease-out_forwards] shadow-[0_0_20px_rgba(0,0,0,0.5)] max-h-screen md:h-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -52,37 +77,47 @@ const LoginPopUp = ({ setSignInPopUp }) => {
                 type="text"
                 placeholder="Enter your name"
                 className="shadow-[0_0_15px_rgba(0,0,0,0.2)] p-3 rounded-2xl outline-none"
-                value={signUpInfo.name}
-                onChange={(e) =>
-                  setSignUpInfo({ ...signUpInfo, name: e.target.value })
-                }
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
               />
+            )}
+
+            {error.name && (
+              <p className="text-red-500 relative -top-4 left-2">
+                {error.name}
+              </p>
             )}
 
             <input
               type="email"
               placeholder="Enter your email"
               className="shadow-[0_0_15px_rgba(0,0,0,0.2)] p-3 rounded-2xl outline-none"
-              value={currState === "Login" ? loginInfo.email : signUpInfo.email}
-              onChange={(e) => {
-                currState === "Login"
-                  ? setLoginInfo({ ...loginInfo, email: e.target.value })
-                  : setSignUpInfo({ ...signUpInfo, email: e.target.value });
-              }}
+              name="email"
+              value={currState === "Login" ? formData.email : formData.email}
+              onChange={handleChange}
             />
+            {error.email && (
+              <p className="text-red-500 relative -top-4 left-2">
+                {error.email}
+              </p>
+            )}
+
             <input
               type="password"
               placeholder="Enter your password"
+              name="password"
               className="shadow-[0_0_15px_rgba(0,0,0,0.2)] p-3 rounded-2xl outline-none"
               value={
-                currState === "Login" ? loginInfo.password : signUpInfo.password
+                currState === "Login" ? formData.password : formData.password
               }
-              onChange={(e) => {
-                currState === "Login"
-                  ? setLoginInfo({ ...loginInfo, password: e.target.value })
-                  : setSignUpInfo({ ...signUpInfo, password: e.target.value });
-              }}
+              onChange={handleChange}
             />
+            {error.password && (
+              <p className="text-red-500 relative -top-4 left-2">
+                {error.password}
+              </p>
+            )}
 
             <button className="bg-orange-400 text-white p-2 rounded-2xl cursor-pointer hover:bg-amber-500 duration-200">
               {currState === "Login" ? "Login" : "SignUp"}
@@ -102,9 +137,15 @@ const LoginPopUp = ({ setSignInPopUp }) => {
           </p>
 
           <span
-            onClick={() =>
-              setCurrState(currState === "Login" ? "SignUp" : "Login")
-            }
+            onClick={() => {
+              setCurrState(currState === "Login" ? "SignUp" : "Login");
+              setFormData({
+                name: "",
+                email: "",
+                password: "",
+              });
+              setError("");
+            }}
             className="text-lg underline cursor-pointer text-orange-500"
           >
             {currState === "Login" ? "SignUp" : "LogIn"}

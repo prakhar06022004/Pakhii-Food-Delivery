@@ -5,7 +5,7 @@ import { TiContacts } from "react-icons/ti";
 
 export const navLinks = [
   { label: "Home", path: "/", icon: <IoHomeOutline /> },
-  { label: "Menu", path: "/", icon: <BiFoodMenu /> },
-  { label: "Mobile-app", path: "/", icon: <CiMobile3 /> },
-  { label: "Contact us", path: "/", icon: <TiContacts /> },
+  { label: "Menu", path: "/menu", icon: <BiFoodMenu /> },
+  { label: "Mobile-app", path: "/mobileapp", icon: <CiMobile3 /> },
+  { label: "Contact us", path: "/contactus", icon: <TiContacts /> },
 ];
