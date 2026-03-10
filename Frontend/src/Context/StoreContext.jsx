@@ -35,16 +35,15 @@ const StoreProvider = ({ children }) => {
   }, []);
 
   const getTotalAmount = () => {
-let totalAmount = 0;
-for(let item in cartItems) {
-  if(cartItems[item] > 0) {
-    let itemInfo = food_list.find((product)=>product._id === item);
-      totalAmount += itemInfo.price * cartItems[item];
-    
-  }
-}
-return totalAmount;
-  }
+    let totalAmount = 0;
+    for (let item in cartItems) {
+      if (cartItems[item] > 0) {
+        let itemInfo = food_list.find((product) => product._id === item);
+        totalAmount += itemInfo.price * cartItems[item];
+      }
+    }
+    return totalAmount;
+  };
 
   const contextValue = {
     food_list,
@@ -58,7 +57,7 @@ return totalAmount;
     setSidebarOpen,
     setSignInPopUp,
     signInPopUp,
-    getTotalAmount
+    getTotalAmount,
   };
 
   return (

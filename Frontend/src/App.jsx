@@ -19,18 +19,13 @@ function App() {
         setSidebarOpen={setSidebarOpen}
         sidebarOpen={sidebarOpen}
       />
-      
-      <div className="min-h-screen">
-        <Navbar
-          setSidebarOpen={setSidebarOpen}
-          setSignInPopUp={setSignInPopUp}
-        />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/order" element={<PlaceOrder />} />
-        </Routes>
-      </div>
+
+      <Navbar setSidebarOpen={setSidebarOpen} setSignInPopUp={setSignInPopUp} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/order" element={<PlaceOrder />} />
+      </Routes>
     </>
   );
 }

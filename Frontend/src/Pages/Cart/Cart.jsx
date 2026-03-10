@@ -57,9 +57,12 @@ function Cart() {
               <hr className="text-gray-500" />
               <div className="font-semibold flex justify-between font-mono text-lg">
                 <p>Total</p>
-                <span>${getTotalAmount()+2}</span>
+                <span>${getTotalAmount() + 2}</span>
               </div>
-              <button className="w-fit bg-orange-500 text-white py-1.5 px-4 rounded-lg mt-2 cursor-pointer hover:bg-orange-600 duration-150" onClick={()=>navigate("/order")}>
+              <button
+                className="w-fit bg-orange-500 text-white py-1.5 px-4 rounded-lg mt-2 cursor-pointer hover:bg-orange-600 duration-150"
+                onClick={() => navigate("/order")}
+              >
                 Proceed to checkout
               </button>
             </div>
