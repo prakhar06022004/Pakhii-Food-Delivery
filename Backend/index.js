@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import { connectDB } from "./Config/DatabaseConnect.js";
+import foodRouter from "./Routes/foodRoute.js";
 
 dotenv.config();
 
@@ -18,6 +19,8 @@ app.get("/", (req, res) => {
 
 const startServer = async () => {
   await connectDB();
+
+  app.use("/api/food", foodRouter);
 
   app.listen(port, () => {
     console.log(`Server Listening on this PORT: ${port}`);
