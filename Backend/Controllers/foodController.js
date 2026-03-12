@@ -42,4 +42,18 @@ const addFood = async (req, res) => {
     }
   }
 };
-export { addFood };
+
+const getFoodList = async (req, res) => {
+  try {
+    const foodList = await FoodModel.find();
+    return res.status(200).json({ success: true, data: foodList });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      error: error.message,
+      message: "Error get food",
+    });
+  }
+};
+
+export { addFood, getFoodList };
