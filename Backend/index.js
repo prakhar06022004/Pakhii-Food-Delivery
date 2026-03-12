@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import { connectDB } from "./Config/DatabaseConnect.js";
+import { connectDB } from "./Config/databaseConnect.js";
 import foodRouter from "./Routes/foodRoute.js";
 
 dotenv.config();
