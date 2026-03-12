@@ -3,6 +3,5 @@ import { addFood } from "../Controllers/foodController.js";
 import upload from "../Middleware/multer.js";
 const foodRouter = express.Router();
 
-foodRouter.post("/add",upload.single("image"), addFood);
+foodRouter.post("/add", upload.single("image"), addFood);
 export default foodRouter;
-

@@ -5,12 +5,13 @@ import fs from "fs";
 const addFood = async (req, res) => {
   try {
     if (!req.file) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Image is required!" });
+      return res.status(400).json({
+        success: false,
+        message: "Image is required!",
+      });
     }
 
-    let cloud_image = await cloudinary.uploader.upload(req.file.path, {
+    const cloud_image = await cloudinary.uploader.upload(req.file.path, {
       folder: "foods",
     });
 
@@ -21,19 +22,24 @@ const addFood = async (req, res) => {
       category: req.body.category,
       image: cloud_image.secure_url,
     });
-    fs.unlinkSync(req.file.path);
-    return res.status(201).json({
+
+    res.status(201).json({
       success: true,
       message: "Food Added successfully",
       data: foodAdd,
     });
   } catch (error) {
-    return res.status(500).json({
+    res.status(500).json({
       success: false,
       message: "Error adding food",
       error: error.message,
     });
+  } finally {
+    if (req.file) {
+      fs.unlink(req.file.path, (err) => {
+        if (err) console.log("File delete error:", err);
+      });
+    }
   }
 };
-
 export { addFood };
