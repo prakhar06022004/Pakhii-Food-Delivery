@@ -13,9 +13,9 @@ app.use(express.json());
 app.use(cors());
 
 const port = process.env.PORT || 8000;
-app.get("/", (req, res) => {
-  res.send("Hi I am Prakhar Joshi!");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hi I am Prakhar Joshi!");
+// });
 
 const startServer = async () => {
   await connectDB();
