@@ -26,13 +26,13 @@ const addFood = async (req, res) => {
     res.status(201).json({
       success: true,
       message: "Food Added successfully",
-      data: foodAdd
+      data: foodAdd,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
       message: "Error adding food",
-      error: error.message
+      error: error.message,
     });
   } finally {
     if (req.file) {
@@ -56,4 +56,20 @@ const getFoodList = async (req, res) => {
   }
 };
 
-export { addFood, getFoodList };
+const removeFood = async (req, res) => {
+  try {
+    const foodRemove = await FoodModel.findByIdAndDelete(req.params.id);
+    return res
+      .status(200)
+      .json({ success: true, message: "Food removed successfully!" });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({
+        success: false,
+        message: "Error removing food",
+        error: error.message,
+      });
+  }
+};
+export { addFood, getFoodList, removeFood };
