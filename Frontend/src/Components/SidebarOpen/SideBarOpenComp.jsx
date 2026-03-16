@@ -9,7 +9,9 @@ const SideBarOpenComp = ({ sidebarOpen, setSidebarOpen }) => {
 
   useEffect(() => {
     document.body.style.overflow = sidebarOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [sidebarOpen]);
 
   return (
@@ -64,9 +66,13 @@ const SideBarOpenComp = ({ sidebarOpen, setSidebarOpen }) => {
                 <li
                   key={option.label}
                   className={`transition-all duration-300 ${
-                    sidebarOpen ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
+                    sidebarOpen
+                      ? "translate-x-0 opacity-100"
+                      : "translate-x-4 opacity-0"
                   }`}
-                  style={{ transitionDelay: sidebarOpen ? `${70 + i * 45}ms` : "0ms" }}
+                  style={{
+                    transitionDelay: sidebarOpen ? `${70 + i * 45}ms` : "0ms",
+                  }}
                 >
                   <button
                     onClick={() => {
@@ -78,9 +84,10 @@ const SideBarOpenComp = ({ sidebarOpen, setSidebarOpen }) => {
                       w-full flex items-center gap-3 px-4 py-3 rounded-2xl
                       text-sm font-semibold tracking-wide text-left
                       transition-all duration-200 group
-                      ${isActive
-                        ? "bg-orange-500 text-white shadow-md shadow-orange-200"
-                        : "text-gray-600 hover:bg-orange-50 hover:text-orange-500"
+                      ${
+                        isActive
+                          ? "bg-orange-500 text-white shadow-md shadow-orange-200"
+                          : "text-gray-600 hover:bg-orange-50 hover:text-orange-500"
                       }
                     `}
                   >
@@ -88,9 +95,10 @@ const SideBarOpenComp = ({ sidebarOpen, setSidebarOpen }) => {
                     <span
                       className={`w-8 h-8 rounded-xl flex items-center justify-center text-base shrink-0
                         transition-transform duration-200 group-hover:scale-110
-                        ${isActive
-                          ? "bg-white/20 text-white"
-                          : "bg-orange-100 text-orange-500"
+                        ${
+                          isActive
+                            ? "bg-white/20 text-white"
+                            : "bg-orange-100 text-orange-500"
                         }`}
                     >
                       {option.icon}
@@ -114,7 +122,7 @@ const SideBarOpenComp = ({ sidebarOpen, setSidebarOpen }) => {
             <span className="text-2xl">🛵</span>
             <div>
               <p className="text-orange-600 font-bold text-xs">Fast Delivery</p>
-              <p className="text-orange-400 text-[11px]">Order & track live</p>
+              <p className="text-orange-400 text-[11px]">Order Now & Enjoy</p>
             </div>
           </div>
         </div>
