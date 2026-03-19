@@ -1,15 +1,19 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
 import Sidebar from "./Components/Sidebar";
 import Navbar from "./Components/Navbar";
+import Add from "./pages/Add";
+import List from "./pages/List";
+import Orders from "./pages/Orders";
 
 const App = () => {
   return (
     <>
-      <Navbar /> <hr />
+      <Navbar /> <hr className="text-gray-400"/>
       <Sidebar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/add" element={<Add />} />
+        <Route path="/list" element={<List />} />
+        <Route path="/orders" element={<Orders />} />
       </Routes>
     </>
   );
