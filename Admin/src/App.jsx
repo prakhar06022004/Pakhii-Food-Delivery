@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Sidebar from "./Components/Sidebar";
 import Navbar from "./Components/Navbar";
 import Add from "./pages/Add";
@@ -12,6 +12,7 @@ const App = () => {
       <div className="flex">
         <Sidebar />
         <Routes>
+          <Route path="/" element={<Navigate to="/add" />} />
           <Route path="/add" element={<Add />} />
           <Route path="/list" element={<List />} />
           <Route path="/orders" element={<Orders />} />

@@ -1,25 +1,17 @@
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { CiBoxList } from "react-icons/ci";
 import { FiBox } from "react-icons/fi";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
-  const navigate = useNavigate();
   return (
-    <div
-      className="flex flex-col items-center shrink-0 sm:items-end gap-10 sm:w-80 w-20 py-5 border-r border-orange-200 min-h-screen"
-      onClick={() => {
-        navigate("/");
-      }}
-    >
+    <div className="flex flex-col items-center shrink-0 sm:items-end gap-10 sm:w-80 w-20 py-5 border-r border-orange-200 min-h-screen">
       <NavLink
         to="/add"
         className={({ isActive }) =>
           `flex sm:w-60 gap-2 shadow-gray-300 border-0 shadow h-fit p-2 cursor-pointer select-none ${isActive ? "bg-amber-300 text-gray-800 duration-200 rounded-3xl sm:w-70" : "sm:60 duration-200"}`
         }
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
+        
       >
         <IoIosAddCircleOutline size={25} />
         <p className="font-outfit sm:block hidden">Add Items</p>
