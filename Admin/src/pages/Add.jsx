@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import axios from "axios";
 
 const categories = [
   "Salad", "Rolls", "Deserts", "Sandwich",
@@ -6,9 +7,11 @@ const categories = [
 ];
 
 const Add = () => {
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(null);       // preview URL
+  const [imageFile, setImageFile] = useState(null); // actual File object
   const [dragOver, setDragOver] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     name: "",
     description: "",
@@ -19,7 +22,8 @@ const Add = () => {
 
   const handleImage = (file) => {
     if (file && file.type.startsWith("image/")) {
-      setImage(URL.createObjectURL(file));
+      setImage(URL.createObjectURL(file)); // preview
+      setImageFile(file);                  // save actual file for FormData
     }
   };
 
@@ -27,41 +31,65 @@ const Add = () => {
     e.preventDefault();
     setDragOver(false);
     handleImage(e.dataTransfer.files[0]);
+    console.log("chdh di")
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!form.name || !form.price) {
       alert("Please fill Product Name and Price!");
       return;
     }
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setForm({ name: "", description: "", category: "Salad", price: "" });
-      setImage(null);
-    }, 2000);
+    if (!imageFile) {
+      alert("Please upload a product image!");
+      return;
+    }
+
+    // Build FormData — image + all form fields
+    const formData = new FormData();
+    formData.append("image", imageFile);
+    formData.append("name", form.name);
+    formData.append("description", form.description);
+    formData.append("category", form.category);
+    formData.append("price", form.price);
+
+    try {
+      setLoading(true);
+
+      const response = await axios.post(
+        "http://localhost:5000/api/food/add", // 👈 apna backend URL yahan lagao
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+
+      if (response.data.success) {
+        setSubmitted(true);
+        setTimeout(() => {
+          setSubmitted(false);
+          setForm({ name: "", description: "", category: "Salad", price: "" });
+          setImage(null);
+          setImageFile(null);
+        }, 2000);
+      } else {
+        alert(response.data.message || "Something went wrong!");
+      }
+    } catch (error) {
+      console.error("Error adding food item:", error);
+      alert("Failed to add item. Check console for details.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleReset = () => {
     setForm({ name: "", description: "", category: "Salad", price: "" });
     setImage(null);
+    setImageFile(null);
   };
 
   return (
-    /*
-      OUTER WRAPPER:
-      - Mobile: full screen, padding small
-      - md (768px+): sidebar layout simulation, moderate padding
-      - lg (1024px+): more padding, wider content
-    */
-    <div className="min-h-screen w-full bg-gradient-to-br from-orange-50 via-white to-amber-50 flex items-start justify-center px-3 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-12">
-
-      {/*
-        MAIN CONTENT AREA:
-        - Mobile: full width
-        - md: 2-column grid (left panel + right form)
-        - lg: wider 2-column with more space
-      */}
+    <div className="min-h-screen w-full bg-linear-to-br from-orange-50 via-white to-amber-50 flex items-start justify-center px-3 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-12">
       <div className="w-full max-w-5xl">
 
         {/* ===== PAGE TITLE BAR ===== */}
@@ -74,37 +102,24 @@ const Add = () => {
               Menu Management → Add New Product
             </p>
           </div>
-          {/* Breadcrumb pill — hidden on very small */}
           <span className="hidden sm:flex items-center gap-2 bg-orange-100 text-orange-600 text-xs font-semibold px-3 py-1.5 rounded-full">
             🍽️ New Item
           </span>
         </div>
 
-        {/*
-          GRID LAYOUT:
-          - Mobile (< md): single column, stacked
-          - md (768px+): 2 columns — left (image + tips) | right (form fields)
-          - lg (1024px+): same grid but wider
-        */}
+        {/* ===== GRID ===== */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-5 lg:gap-7">
 
-          {/* ==================== LEFT PANEL ==================== */}
-          {/*
-            md: takes 2 of 5 columns
-            lg: takes 2 of 5 columns
-          */}
+          {/* ========== LEFT PANEL ========== */}
           <div className="md:col-span-2 flex flex-col gap-5">
-
-            {/* Image Upload Card */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 lg:p-6">
               <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">
-                Product Image
+                Product Image <span className="text-orange-500">*</span>
               </p>
 
-              {/* Upload Box */}
               <div
                 onClick={() => fileRef.current.click()}
-                onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+                onDragOver={(e) => { e.preventDefault(); setDragOver(true); console.log("hwa m hi h") }}
                 onDragLeave={() => setDragOver(false)}
                 onDrop={handleDrop}
                 className={`relative rounded-xl border-2 border-dashed cursor-pointer overflow-hidden transition-all duration-200
@@ -138,30 +153,32 @@ const Add = () => {
                     <p className="text-[10px] text-gray-300 mt-2">PNG · JPG · WEBP · max 5MB</p>
                   </div>
                 )}
-                <input ref={fileRef} type="file" accept="image/*" className="hidden"
-                  onChange={(e) => handleImage(e.target.files[0])} />
+                <input
+                  ref={fileRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => handleImage(e.target.files[0])}
+                />
               </div>
 
               {image && (
-                <button onClick={() => setImage(null)}
-                  className="w-full mt-3 py-1.5 text-xs text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition font-medium">
+                <button
+                  onClick={() => { setImage(null); setImageFile(null); }}
+                  className="w-full mt-3 py-1.5 text-xs text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition font-medium"
+                >
                   ✕ Remove Image
                 </button>
               )}
             </div>
-
-
-
           </div>
 
-          {/* ==================== RIGHT PANEL (Form) ==================== */}
-          {/* md: takes 3 of 5 columns */}
+          {/* ========== RIGHT PANEL ========== */}
           <div className="md:col-span-3">
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6 lg:p-8">
 
-              {/* Form Header */}
               <div className="flex items-center gap-3 mb-6 pb-5 border-b border-gray-100">
-                <div className="w-9 h-9 lg:w-10 lg:h-10 bg-orange-500 rounded-xl flex items-center justify-center text-white text-lg flex-shrink-0">
+                <div className="w-9 h-9 lg:w-10 lg:h-10 bg-orange-500 rounded-xl flex items-center justify-center text-white text-lg shrink-0">
                   🍔
                 </div>
                 <div>
@@ -170,7 +187,7 @@ const Add = () => {
                 </div>
               </div>
 
-              {/* ---- Product Name ---- */}
+              {/* Product Name */}
               <div className="mb-5">
                 <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
                   Product Name <span className="text-orange-500">*</span>
@@ -186,7 +203,7 @@ const Add = () => {
                 />
               </div>
 
-              {/* ---- Description ---- */}
+              {/* Description */}
               <div className="mb-5">
                 <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
                   Description
@@ -208,21 +225,14 @@ const Add = () => {
                 </div>
               </div>
 
-              {/*
-                ---- Category + Price ----
-                Mobile: stacked
-                sm+: side by side
-              */}
+              {/* Category + Price */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 lg:mb-7">
-
-                {/* Category */}
                 <div>
                   <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
                     Category
                   </label>
                   <div className="relative">
                     <select
-                      name="category"
                       value={form.category}
                       onChange={(e) => setForm({ ...form, category: e.target.value })}
                       className="w-full px-4 py-3 lg:py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700
@@ -237,7 +247,6 @@ const Add = () => {
                   </div>
                 </div>
 
-                {/* Price */}
                 <div>
                   <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
                     Price (USD) <span className="text-orange-500">*</span>
@@ -259,12 +268,10 @@ const Add = () => {
                 </div>
               </div>
 
-              {/* Divider */}
               <hr className="border-gray-100 mb-5" />
 
-              {/* ---- Action Buttons ---- */}
+              {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-3">
-                {/* Clear */}
                 <button
                   onClick={handleReset}
                   className="sm:w-auto px-6 py-3 border border-gray-200 rounded-xl text-sm font-semibold text-gray-500
@@ -273,17 +280,25 @@ const Add = () => {
                   ✕ Clear Form
                 </button>
 
-                {/* Submit */}
                 <button
                   onClick={handleSubmit}
+                  disabled={loading}
                   className={`flex-1 py-3 lg:py-3.5 rounded-xl text-sm font-bold text-white transition-all active:scale-95
-                    flex items-center justify-center gap-2 shadow-lg
+                    flex items-center justify-center gap-2 shadow-lg disabled:opacity-70 disabled:cursor-not-allowed
                     ${submitted
                       ? "bg-green-500 shadow-green-200"
                       : "bg-orange-500 hover:bg-orange-600 shadow-orange-200 hover:shadow-orange-300"
                     }`}
                 >
-                  {submitted ? (
+                  {loading ? (
+                    <>
+                      <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                      </svg>
+                      Uploading...
+                    </>
+                  ) : submitted ? (
                     <>✅ Item Added!</>
                   ) : (
                     <>
@@ -298,13 +313,8 @@ const Add = () => {
 
             </div>
           </div>
-          {/* ==================== END RIGHT PANEL ==================== */}
 
         </div>
-        {/* ==================== END GRID ==================== */}
-
-
-
       </div>
     </div>
   );
