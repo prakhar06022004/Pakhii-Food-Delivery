@@ -1,14 +1,13 @@
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { CiBoxList } from "react-icons/ci";
 import { FiBox } from "react-icons/fi";
-import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const navigate = useNavigate();
   return (
     <div
-      className="flex flex-col items-end gap-10 sm:w-80 w-20 py-5 border-r min-h-screen border-gray-500"
+      className="flex flex-col items-center shrink-0 sm:items-end gap-10 sm:w-80 w-20 py-5 border-r border-orange-200 min-h-screen"
       onClick={() => {
         navigate("/");
       }}
@@ -20,7 +19,6 @@ const Sidebar = () => {
         }
         onClick={(e) => {
           e.stopPropagation();
-          setActive("add");
         }}
       >
         <IoIosAddCircleOutline size={25} />
@@ -33,7 +31,6 @@ const Sidebar = () => {
         }
         onClick={(e) => {
           e.stopPropagation();
-          setActive("list");
         }}
       >
         <CiBoxList size={25} />
@@ -46,7 +43,6 @@ const Sidebar = () => {
         }
         onClick={(e) => {
           e.stopPropagation();
-          setActive("order");
         }}
       >
         <FiBox size={25} />

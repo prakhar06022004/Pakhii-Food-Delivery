@@ -8,13 +8,15 @@ import Orders from "./pages/Orders";
 const App = () => {
   return (
     <>
-      <Navbar /> <hr className="text-gray-400"/>
-      <Sidebar />
-      <Routes>
-        <Route path="/add" element={<Add />} />
-        <Route path="/list" element={<List />} />
-        <Route path="/orders" element={<Orders />} />
-      </Routes>
+      <Navbar /> <hr className="border-orange-200" />
+      <div className="flex">
+        <Sidebar />
+        <Routes>
+          <Route path="/add" element={<Add />} />
+          <Route path="/list" element={<List />} />
+          <Route path="/orders" element={<Orders />} />
+        </Routes>
+      </div>
     </>
   );
 };
