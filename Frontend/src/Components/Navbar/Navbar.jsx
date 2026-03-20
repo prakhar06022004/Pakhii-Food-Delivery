@@ -70,13 +70,15 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
   return (
     <div className="sticky top-0 z-999 bg-white pb-2">
       <div className="flex font-outfit md:justify-around justify-between py-3 p-4 items-center select-none ">
-        <div>
-          <h2
-            className="text-2xl sm:text-3xl text-orange-500 font-bold font-chewy cursor-pointer whitespace-nowrap"
-            onClick={() => navigate("/")}
-          >
+        <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-linear-to-br from-orange-400 to-orange-600 shadow-md shadow-orange-200 shrink-0">
+            <span className="text-white font-extrabold text-xl leading-none">
+              P
+            </span>
+          </div>
+          <span className="text-xl sm:text-2xl font-extrabold text-orange-500 tracking-tight leading-none whitespace-nowrap">
             Pakhii Delivery
-          </h2>
+          </span>
         </div>
         <ul className="hidden md:flex gap-10 text-gray-600 whitespace-nowrap">
           {navLinks.map((options) => (
