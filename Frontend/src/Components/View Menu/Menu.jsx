@@ -3,7 +3,7 @@ function Menu({ category, setCategory }) {
   return (
     <div className="flex flex-col gap-5 max-w-6xl m-auto">
       <div className="flex flex-col">
-        <p className="font-semibold text-2xl md:text-3xl mt-5 text-gray-800 px-2 md:p-0 ">
+        <p className=" text-2xl md:text-4xl mt-5 font-black text-orange-400 px-2 md:p-0 tracking-tight">
           Explore our menu
         </p>
         <p className="font-semibold text-gray-600 px-2 md:p-0 text-justify">
@@ -18,7 +18,7 @@ function Menu({ category, setCategory }) {
       >
         {menu_list.map((menuItem) => (
           <div
-            className="cursor-pointer flex shrink-0 flex-col"
+            className="cursor-pointer flex shrink-0 flex-col font-medium text-gray-700"
             key={menuItem?.menu_name}
             onClick={() =>
               setCategory((prev) =>

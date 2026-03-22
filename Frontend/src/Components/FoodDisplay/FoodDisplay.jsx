@@ -15,7 +15,7 @@ const FoodDisplay = ({ category }) => {
         <p className="text-center p-10 text-lg text-gray-800">No items found</p>
       ) : (
         <>
-          <p className="font-medium text-2xl sm:text-3xl text-gray-800 max-w-6xl m-auto mb-5">
+          <p className="font-bold text-2xl sm:text-3xl text-gray-700 max-w-6xl m-auto mb-5 -tracking-tight">
             Top dishes near you
           </p>
           <div className="w-full max-w-7xl m-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

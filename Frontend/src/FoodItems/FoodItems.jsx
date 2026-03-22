@@ -13,50 +13,67 @@ const FoodItems = ({ id, name, price, image, description }) => {
     removeFromCart(id);
   };
 
+  const count = cartItems[id] || 0;
+
   return (
-    <div className="cursor-pointer select-none">
-      <div>
+    <div className="cursor-pointer select-none group bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1">
+      {/* Image Section */}
+      <div className="relative overflow-hidden">
         <img
           src={image}
           alt={name}
-          className="rounded-2xl w-full h-50 object-cover"
+          className="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500"
         />
-      </div>
-      <div className="p-3">
-        <div className="md:flex justify-between">
-          <p className="font-medium text-lg">{name}</p>
-          <img src={assets.rating_starts} className="h-5 w-fit" alt="rating" />
+        {/* Price Badge */}
+        <div className="absolute top-3 right-3 bg-orange-500 text-white text-sm font-bold px-3 py-1 rounded-full shadow">
+          ${price}
         </div>
-        <p>{description}</p>
+      </div>
 
-        <div className="flex mt-2 items-center justify-between">
-          <p className="text-amber-500 text-lg mt-1 font-semibold">${price}</p>
+      {/* Content Section */}
+      <div className="p-4 flex flex-col gap-2">
+        {/* Name + Rating */}
+        <div className="flex items-center justify-between gap-2">
+          <p className="font-bold text-gray-800 text-base leading-snug tracking-tight line-clamp-1">
+            {name}
+          </p>
+          <img src={assets.rating_starts} className="h-4 w-fit shrink-0" alt="rating" />
+        </div>
 
-          <div className="flex items-center  gap-2">
-            <span
+        {/* Description */}
+        <p className="text-gray-400 text-sm leading-relaxed line-clamp-2">{description}</p>
+
+        {/* Cart Controls */}
+        <div className="flex items-center justify-between mt-1 pt-3 border-t border-gray-100">
+          {/* Quantity Controls */}
+          <div className="flex items-center gap-2">
+            <button
               onClick={() => itemCountDecrease(id)}
-              className="bg-red-500/10 rounded-full p-1"
+              className="w-8 h-8 flex items-center justify-center rounded-full bg-red-50 hover:bg-red-100 text-red-500 transition-colors duration-150 active:scale-90"
             >
-              <FaMinus className="text-red-500" />
-            </span>
-            <span
-              className="flex justify-center items-center gap-2 border rounded-2xl hover:bg-gray-200 duration-150 p-2 md:p-0.5 px-5 md:px-2 whitespace-nowrap"
-              onClick={() => itemCountIncrease(id)}
-            >
-              <span className="hidden md:block">Add to cart</span>
+              <FaMinus size={11} />
+            </button>
 
-              <span className="">
-                <FaOpencart />
-              </span>
+            <span className="min-w-6 text-center font-bold text-gray-700 text-base tabular-nums">
+              {count}
             </span>
-            <span
+
+            <button
               onClick={() => itemCountIncrease(id)}
-              className="bg-green-500/10 rounded-full p-1"
+              className="w-8 h-8 flex items-center justify-center rounded-full bg-green-50 hover:bg-green-100 text-green-500 transition-colors duration-150 active:scale-90"
             >
-              <FaPlus className="text-green-400" />
-            </span>
-            <p className="text-2xl">{cartItems[id] || 0}</p>
+              <FaPlus size={11} />
+            </button>
           </div>
+
+          {/* Add to Cart Button */}
+          <button
+            onClick={() => itemCountIncrease(id)}
+            className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 active:scale-95 text-white text-sm font-semibold px-4 py-2 rounded-xl transition-all duration-150 shadow-sm hover:shadow-orange-200 hover:shadow-md"
+          >
+            <span className="hidden sm:inline">Add to Cart</span>
+            <FaOpencart size={16} />
+          </button>
         </div>
       </div>
     </div>
