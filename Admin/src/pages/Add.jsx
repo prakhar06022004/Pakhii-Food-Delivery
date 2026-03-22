@@ -61,7 +61,7 @@ const Add = () => {
     formData.append("name", form.name);
     formData.append("description", form.description);
     formData.append("category", form.category);
-    formData.append("price", form.price);
+    formData.append("price", Number(form.price));
 
     try {
       setLoading(true);
@@ -69,9 +69,6 @@ const Add = () => {
       const response = await axios.post(
         "http://localhost:5000/api/food/add", // 👈 apna backend URL yahan lagao
         formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        },
       );
 
       if (response.data.success) {
