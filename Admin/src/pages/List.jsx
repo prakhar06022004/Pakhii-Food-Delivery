@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { MdDelete } from "react-icons/md";
+import { ToastContainer, toast } from "react-toastify";
 
 const CategoryBadge = ({ category }) => {
   const colors = {
@@ -39,7 +41,7 @@ const SkeletonCard = () => (
   </div>
 );
 
-const FoodCard = ({ item }) => {
+const FoodCard = ({ item, handleRemove }) => {
   const [imgErr, setImgErr] = useState(false);
 
   return (
@@ -76,9 +78,11 @@ const FoodCard = ({ item }) => {
           <span className="text-orange-500 font-extrabold text-base whitespace-nowrap">
             ₹{item.price}
           </span>
-          <button className="bg-orange-500 hover:bg-orange-600 active:scale-95 text-white text-xs font-bold px-3 py-1.5 rounded-xl transition-all duration-150 whitespace-nowrap">
-            Add +
-          </button>
+          <MdDelete
+            className="text-gray-500 cursor-pointer hover:bg-gray-200 rounded-2xl duration-200"
+            size={23}
+            onClick={() => handleRemove(item._id)}
+          />
         </div>
       </div>
     </div>
@@ -91,6 +95,22 @@ const List = () => {
   const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
+
+  const handleRemove = async (id) => {
+    try {
+      const removeItem = await axios.delete(
+        `http://localhost:5000/api/food/remove/${id}`,
+      );
+      if (removeItem.data.success) {
+        toast.success(removeItem.data.message);
+      } else {
+        toast.error("Removing Error");
+      }
+      setList((prev) => prev.filter((item) => item._id !== id));
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   useEffect(() => {
     const getItems = async () => {
@@ -126,11 +146,10 @@ const List = () => {
       w-full ensures it never grows wider than parent.
     */
     <div className="min-h-screen bg-orange-50/40 w-full overflow-x-hidden">
-
       {/* ── Sticky Header ── */}
+      <ToastContainer />
       <div className="bg-white border-b border-gray-100 sticky top-0 z-10 shadow-sm w-full">
         <div className="w-full px-3 sm:px-5 lg:px-8 pt-3 pb-2">
-
           {/* Title + Search — stack on mobile, row on sm+ */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
             <div className="flex items-center gap-2 min-w-0">
@@ -140,7 +159,9 @@ const List = () => {
                   Our Menu
                 </h1>
                 <p className="text-[10px] text-gray-400 leading-none">
-                  {loading ? "Loading..." : `${filtered.length} items available`}
+                  {loading
+                    ? "Loading..."
+                    : `${filtered.length} items available`}
                 </p>
               </div>
             </div>
@@ -195,7 +216,6 @@ const List = () => {
 
       {/* ── Main Content ── */}
       <div className="w-full px-3 sm:px-5 lg:px-8 py-4">
-
         {/* Error */}
         {error && (
           <div className="flex flex-col items-center py-10 gap-2">
@@ -208,9 +228,11 @@ const List = () => {
         {loading && (
           <div
             className="grid gap-3"
-            style={{ gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))" }}
+            style={{
+              gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
+            }}
           >
-            {Array.from({ length: 8 }).map((_, i) => (
+            {Array.from({ length: 12 }).map((_, i) => (
               <SkeletonCard key={i} />
             ))}
           </div>
@@ -223,11 +245,18 @@ const List = () => {
             <p className="text-gray-400 text-xs text-center">
               No dishes found
               {search && (
-                <> for &quot;<strong className="text-gray-600">{search}</strong>&quot;</>
+                <>
+                  {" "}
+                  for &quot;<strong className="text-gray-600">{search}</strong>
+                  &quot;
+                </>
               )}
             </p>
             <button
-              onClick={() => { setSearch(""); setActiveCategory("All"); }}
+              onClick={() => {
+                setSearch("");
+                setActiveCategory("All");
+              }}
               className="text-orange-500 text-xs underline underline-offset-2 mt-1"
             >
               Clear filters
@@ -245,10 +274,18 @@ const List = () => {
         {!loading && !error && filtered.length > 0 && (
           <div
             className="grid gap-3"
-            style={{ gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))" }}
+            style={{
+              gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
+            }}
           >
             {filtered.map((item) => (
-              <FoodCard key={item._id} item={item} />
+              <>
+                <FoodCard
+                  key={item._id}
+                  item={item}
+                  handleRemove={handleRemove}
+                />
+              </>
             ))}
           </div>
         )}

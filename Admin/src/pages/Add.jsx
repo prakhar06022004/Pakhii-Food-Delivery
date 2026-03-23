@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+
 const categories = [
   "Salad",
   "Rolls",
@@ -72,6 +74,7 @@ const Add = () => {
       );
 
       if (response.data.success) {
+        toast.success(response.data.message);
         setSubmitted(true);
         setTimeout(() => {
           setSubmitted(false);
@@ -80,7 +83,7 @@ const Add = () => {
           setImageFile(null);
         }, 2000);
       } else {
-        alert(response.data.message || "Something went wrong!");
+        toast.error(response.data.message || "Something went wrong!");
       }
     } catch (error) {
       console.error("Error adding food item:", error);
@@ -98,6 +101,7 @@ const Add = () => {
 
   return (
     <div className="min-h-screen w-full bg-linear-to-br from-orange-50 via-white to-amber-50 flex items-start justify-center px-3 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-12">
+      <ToastContainer />
       <div className="w-full max-w-5xl">
         {/* ===== PAGE TITLE BAR ===== */}
         <div className="flex items-center justify-between mb-6 sm:mb-8">
