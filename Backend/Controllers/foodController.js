@@ -63,13 +63,11 @@ const removeFood = async (req, res) => {
       .status(200)
       .json({ success: true, message: "Food removed successfully!" });
   } catch (error) {
-    return res
-      .status(500)
-      .json({
-        success: false,
-        message: "Error removing food",
-        error: error.message,
-      });
+    return res.status(500).json({
+      success: false,
+      message: "Error removing food",
+      error: error.message,
+    });
   }
 };
 export { addFood, getFoodList, removeFood };
