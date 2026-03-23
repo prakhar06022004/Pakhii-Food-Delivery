@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { MdDelete } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
+import FoodCard from "../Components/FoodCard";
 
-const CategoryBadge = ({ category }) => {
+export const CategoryBadge = ({ category }) => {
   const colors = {
     default: "bg-amber-100 text-amber-800",
     veg: "bg-green-100 text-green-700",
@@ -40,54 +40,6 @@ const SkeletonCard = () => (
     </div>
   </div>
 );
-
-const FoodCard = ({ item, handleRemove }) => {
-  const [imgErr, setImgErr] = useState(false);
-
-  return (
-    <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col">
-      <div
-        className="relative overflow-hidden bg-orange-50 w-full shrink-0"
-        style={{ aspectRatio: "4/3" }}
-      >
-        {!imgErr && item.image ? (
-          <img
-            src={item.image}
-            alt={item.name}
-            onError={() => setImgErr(true)}
-            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-4xl">🍽️</span>
-          </div>
-        )}
-        <div className="absolute top-2 left-2">
-          <CategoryBadge category={item.category} />
-        </div>
-      </div>
-
-      <div className="p-3 flex flex-col flex-1">
-        <h3 className="font-bold text-gray-900 text-sm leading-snug truncate mb-1">
-          {item.name}
-        </h3>
-        <p className="text-gray-400 text-xs leading-relaxed line-clamp-2 flex-1 mb-3">
-          {item.description || "No description available."}
-        </p>
-        <div className="flex items-center justify-between gap-2">
-          <span className="text-orange-500 font-extrabold text-base whitespace-nowrap">
-            ₹{item.price}
-          </span>
-          <MdDelete
-            className="text-gray-500 cursor-pointer hover:bg-gray-200 rounded-2xl duration-200"
-            size={23}
-            onClick={() => handleRemove(item._id)}
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const List = () => {
   const [list, setList] = useState([]);
@@ -181,13 +133,6 @@ const List = () => {
             </div>
           </div>
 
-          {/*
-            Category tabs:
-            - overflow-x-auto  → ONLY this strip scrolls horizontally
-            - overflow-y-hidden → no vertical bleed
-            - w-full           → stays inside parent, never overflows page
-            - scrollbar hidden via inline style (works cross-browser)
-          */}
           {!loading && categories.length > 1 && (
             <div
               className="w-full overflow-x-auto overflow-y-hidden pb-1"
@@ -246,7 +191,6 @@ const List = () => {
               No dishes found
               {search && (
                 <>
-                  {" "}
                   for &quot;<strong className="text-gray-600">{search}</strong>
                   &quot;
                 </>
@@ -257,20 +201,13 @@ const List = () => {
                 setSearch("");
                 setActiveCategory("All");
               }}
-              className="text-orange-500 text-xs underline underline-offset-2 mt-1"
+              className="text-orange-500 text-xs underline underline-offset-2 mt-1 cursor-pointer"
             >
               Clear filters
             </button>
           </div>
         )}
 
-        {/*
-          Food grid — auto-fill so cards always stretch to fill available width.
-          minmax(150px, 1fr):
-            mobile  → 2 cols  (screen ~360px → 2×150)
-            tablet  → 3-4 cols
-            desktop → 5-6 cols
-        */}
         {!loading && !error && filtered.length > 0 && (
           <div
             className="grid gap-3"
