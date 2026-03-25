@@ -2,7 +2,7 @@ import { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { MdLogin } from "react-icons/md";
 import { LiaSignInAltSolid } from "react-icons/lia";
-
+import axios from "axios";
 const LoginPopUp = ({ setSignInPopUp }) => {
   const [currState, setCurrState] = useState("Login");
   const [error, setError] = useState({ name: "", email: "", password: "" });
@@ -14,11 +14,13 @@ const LoginPopUp = ({ setSignInPopUp }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     let newErrors = {
       name: "",
       email: "",
       password: "",
     };
+
     if (currState === "SignUp" && !formData.name) {
       newErrors.name = "Please enter your name.";
     }
@@ -26,12 +28,46 @@ const LoginPopUp = ({ setSignInPopUp }) => {
     if (!formData.email) {
       newErrors.email = "Please enter your email address.";
     }
+
     if (!formData.password) {
       newErrors.password = "Please enter your password.";
     }
+
     setError(newErrors);
 
-    console.log(formData);
+    // stop if error
+    if (newErrors.name || newErrors.email || newErrors.password) {
+      return;
+    }
+
+    const signUpUser = async () => {
+      try {
+        const signUp = await axios.post(
+          "http://localhost:5000/api/user/register",
+          formData,
+        );
+        console.log(signUp);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    const loginUser = async () => {
+      try {
+        const login = await axios.post(
+          "http://localhost:5000/api/user/login",
+          formData,
+        );
+        console.log(login);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    if (currState === "SignUp") {
+      signUpUser();
+    } else {
+      loginUser();
+    }
   };
 
   const handleChange = (e) => {
