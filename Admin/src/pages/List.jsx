@@ -107,10 +107,10 @@ const List = () => {
             <div className="flex items-center gap-2 min-w-0">
               <span className="text-xl shrink-0">🍴</span>
               <div className="min-w-0">
-                <h1 className="md:text-2xl text-xl font-extrabold text-gray-900 leading-tight truncate">
+                <h1 className="text-lg sm:text-xl font-extrabold text-gray-900 leading-tight truncate">
                   Our Menu
                 </h1>
-                <p className="sm:text-sm text-xs text-gray-400 leading-none">
+                <p className="text-[10px] text-gray-400 leading-none">
                   {loading
                     ? "Loading..."
                     : `${filtered.length} items available`}
