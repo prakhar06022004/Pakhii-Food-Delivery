@@ -4,6 +4,7 @@ import cors from "cors";
 import { connectDB } from "./Config/databaseConnect.js";
 import foodRouter from "./Routes/foodRoute.js";
 import userRouter from "./Routes/userRoute.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -11,7 +12,18 @@ const app = express();
 
 app.use(express.json());
 
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:5173", 
+  "http://localhost:5174", 
+];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  }),
+);
+app.use(cookieParser());
 
 const port = process.env.PORT || 8000;
 // app.get("/", (req, res) => {

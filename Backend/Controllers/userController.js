@@ -34,7 +34,11 @@ const registerUser = async (req, res) => {
       email,
     });
     const token = generateToken(newUser._id);
-
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+    });
     console.log(newUser);
     return res
       .status(201)
@@ -76,12 +80,20 @@ const loginUser = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Password did not match" });
     }
+    
     const token = generateToken(user._id);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+    });
+
     return res.status(200).json({
       success: true,
       message: "Login successful",
       token,
     });
+
   } catch (error) {
     res.status(500).json({
       success: false,
