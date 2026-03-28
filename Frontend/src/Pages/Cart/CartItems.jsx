@@ -1,12 +1,12 @@
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
-import { StoreContext } from "../../Context/StoreContext";
 import { useContext } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { CartContext } from "../../Context/CartContext";
 
 const CartItems = ({ item, qty }) => {
   const { addToCart, removeFromCart, completeRemoveCart } =
-    useContext(StoreContext);
+    useContext(CartContext);
 
   const itemCountIncrease = (id) => {
     addToCart(id);

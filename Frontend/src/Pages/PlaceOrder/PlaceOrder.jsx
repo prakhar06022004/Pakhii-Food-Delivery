@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowRoundBack } from "react-icons/io";
-import { StoreContext } from "../../Context/StoreContext";
+import { CartContext } from "../../Context/CartContext";
 
 function PlaceOrder() {
-  const { getTotalAmount } = useContext(StoreContext);
+  const { getTotalAmount } = useContext(CartContext);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({

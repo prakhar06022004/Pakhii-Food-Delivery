@@ -1,0 +1,62 @@
+import { createContext } from "react";
+import { useCallback } from "react";
+import { food_list } from "../assets/frontend_assets/assets";
+import { useState } from "react";
+export const CartContext = createContext(null);
+const CartStoreProvider = ({ children }) => {
+  const [cartItems, setCartItems] = useState({});
+  const addToCart = useCallback((itemId) => {
+    setCartItems((prev) => {
+      if (!prev[itemId]) {
+        return { ...prev, [itemId]: 1 };
+      } else {
+        return { ...prev, [itemId]: prev[itemId] + 1 };
+      }
+    });
+  }, []);
+
+  const removeFromCart = useCallback((itemId) => {
+    setCartItems((prev) => {
+      if (!prev[itemId]) return prev;
+      const updateCart = { ...prev, [itemId]: prev[itemId] - 1 };
+
+      if (updateCart[itemId] <= 0) delete updateCart[itemId];
+      return updateCart;
+    });
+  }, []);
+
+  const completeRemoveCart = useCallback((itemId) => {
+    setCartItems((prev) => {
+      const updateCart = { ...prev };
+      delete updateCart[itemId];
+      return updateCart;
+    });
+  }, []);
+
+  const getTotalAmount = useCallback(()=>{
+    let totalAmount = 0;
+    for (let item in cartItems) {
+      if (cartItems[item] > 0) {
+        let itemInfo = food_list.find((product) => product._id === item);
+        totalAmount += itemInfo.price * cartItems[item];
+      }
+    }
+    return totalAmount;
+  },[cartItems])
+
+  const CartContextValue = {
+    cartItems,
+    addToCart,
+    completeRemoveCart,
+    getTotalAmount,
+    removeFromCart,
+  };
+
+  return (
+    <CartContext.Provider value={CartContextValue}>
+      {children}
+    </CartContext.Provider>
+  );
+};
+
+export default CartStoreProvider;

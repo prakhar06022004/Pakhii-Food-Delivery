@@ -6,6 +6,7 @@ import { StoreContext } from "../../Context/StoreContext";
 import { IoIosSearch } from "react-icons/io";
 import { navLinks } from "../NavOptionLinks/NavOptionLinks";
 import { FaMicrophone } from "react-icons/fa";
+import { CartContext } from "../../Context/CartContext";
 function Navbar({ setSidebarOpen, setSignInPopUp }) {
   const [isListening, setIsListening] = useState(false);
   const SpeechRecognition =
@@ -35,7 +36,7 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
       setIsListening(false); // listening khatam → mic OFF
     };
   };
-  const { cartItems } = useContext(StoreContext);
+  const { cartItems } = useContext(CartContext);
 
   const { search, setSearch } = useContext(StoreContext);
 

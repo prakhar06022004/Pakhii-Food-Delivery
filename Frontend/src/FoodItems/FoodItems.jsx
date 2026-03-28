@@ -3,10 +3,10 @@ import { assets } from "../assets/frontend_assets/assets";
 import { FaOpencart } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
-import { StoreContext } from "../Context/StoreContext";
+import { CartContext } from "../Context/CartContext";
 
 const FoodItems = ({ id, name, price, image, description }) => {
-  const { cartItems, addToCart, removeFromCart } = useContext(StoreContext);
+  const { cartItems, addToCart, removeFromCart } = useContext(CartContext);
   const itemCountIncrease = (id) => addToCart(id);
   const itemCountDecrease = (id) => {
     if (!cartItems[id]) return;

@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
-import { StoreContext } from "../../Context/StoreContext";
 import { food_list } from "../../assets/frontend_assets/assets";
 import CartItems from "./CartItems";
+import { CartContext } from "../../Context/CartContext";
 
 function Cart() {
-  const { cartItems, getTotalAmount } = useContext(StoreContext);
+  const { cartItems, getTotalAmount } = useContext(CartContext);
   const navigate = useNavigate();
 
   return (
