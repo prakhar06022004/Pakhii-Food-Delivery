@@ -11,7 +11,6 @@ const Sidebar = () => {
         className={({ isActive }) =>
           `flex sm:w-60 gap-2 shadow-gray-300 border-0 shadow h-fit p-2 cursor-pointer select-none ${isActive ? "bg-amber-300 text-gray-800 duration-200 rounded-3xl sm:w-65" : "sm:60 duration-200"}`
         }
-        
       >
         <IoIosAddCircleOutline size={25} />
         <p className="font-outfit sm:block hidden">Add Items</p>
