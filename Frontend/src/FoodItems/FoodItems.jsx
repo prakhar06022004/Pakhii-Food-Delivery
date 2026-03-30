@@ -7,12 +7,6 @@ import { CartContext } from "../Context/CartContext";
 
 const FoodItems = ({ id, name, price, image, description }) => {
   const { cartItems, addToCart, removeFromCart } = useContext(CartContext);
-  const itemCountIncrease = (id) => addToCart(id);
-  const itemCountDecrease = (id) => {
-    if (!cartItems[id]) return;
-    removeFromCart(id);
-  };
-
   const count = cartItems[id] || 0;
 
   return (
@@ -37,18 +31,27 @@ const FoodItems = ({ id, name, price, image, description }) => {
           <p className="font-bold text-gray-800 text-base leading-snug tracking-tight line-clamp-1">
             {name}
           </p>
-          <img src={assets.rating_starts} className="h-4 w-fit shrink-0" alt="rating" />
+          <img
+            src={assets.rating_starts}
+            className="h-4 w-fit shrink-0"
+            alt="rating"
+          />
         </div>
 
         {/* Description */}
-        <p className="text-gray-400 text-sm leading-relaxed line-clamp-2">{description}</p>
+        <p className="text-gray-400 text-sm leading-relaxed line-clamp-2">
+          {description}
+        </p>
 
         {/* Cart Controls */}
         <div className="flex items-center justify-between mt-1 pt-3 border-t border-gray-100">
           {/* Quantity Controls */}
           <div className="flex items-center gap-2">
             <button
-              onClick={() => itemCountDecrease(id)}
+              onClick={() => {
+                if (!cartItems[id]) return;
+                removeFromCart(id);
+              }}
               className="w-8 h-8 flex items-center justify-center rounded-full bg-red-50 hover:bg-red-100 text-red-500 transition-colors duration-150 active:scale-90"
             >
               <FaMinus size={11} />
@@ -59,7 +62,7 @@ const FoodItems = ({ id, name, price, image, description }) => {
             </span>
 
             <button
-              onClick={() => itemCountIncrease(id)}
+              onClick={() => addToCart(id)}
               className="w-8 h-8 flex items-center justify-center rounded-full bg-green-50 hover:bg-green-100 text-green-500 transition-colors duration-150 active:scale-90"
             >
               <FaPlus size={11} />
@@ -68,7 +71,7 @@ const FoodItems = ({ id, name, price, image, description }) => {
 
           {/* Add to Cart Button */}
           <button
-            onClick={() => itemCountIncrease(id)}
+            onClick={() => addToCart(id)}
             className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 active:scale-95 text-white text-sm font-semibold px-4 py-2 rounded-xl transition-all duration-150 shadow-sm hover:shadow-orange-200 hover:shadow-md"
           >
             <span className="hidden sm:inline">Add to Cart</span>
