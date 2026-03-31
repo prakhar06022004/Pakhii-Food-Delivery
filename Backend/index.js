@@ -5,7 +5,6 @@ import { connectDB } from "./Config/databaseConnect.js";
 import foodRouter from "./Routes/foodRoute.js";
 import userRouter from "./Routes/userRoute.js";
 import cookieParser from "cookie-parser";
-import authMiddleware from "./Middleware/jwt.js";
 
 dotenv.config();
 
@@ -13,7 +12,7 @@ const app = express();
 
 app.use(express.json());
 
-const allowedOrigins = ["http://localhost:5173", "http://localhost:5174"];
+const allowedOrigins = ["http://localhost:5173", "http://localhost:5174","http://localhost:5175"];
 
 app.use(
   cors({

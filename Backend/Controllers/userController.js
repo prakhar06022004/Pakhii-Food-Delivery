@@ -101,11 +101,23 @@ const loginUser = async (req, res) => {
   }
 };
 
+const logout = async (req, res) => {
+  try {
+    res.cookie("token", "", {
+      httpOnly: true,
+      secure: false,
+      sameSite: "strict",
+      expires: new Date(0),
+    });
+    return res
+      .status(200)
+      .json({ success: true, message: "Logged out successfully" });
+  } catch (error) {}
+};
+
 const meData = async (req, res) => {
   try {
-    const user = await userModel
-      .findById(req.userId)
-      .select("-password");
+    const user = await userModel.findById(req.userId).select("-password");
     if (!user) {
       return res.status(404).json({
         success: false,
@@ -116,6 +128,7 @@ const meData = async (req, res) => {
       success: true,
       user,
     });
+
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -123,4 +136,4 @@ const meData = async (req, res) => {
     });
   }
 };
-export { registerUser, loginUser, meData };
+export { registerUser, loginUser, meData, logout };
