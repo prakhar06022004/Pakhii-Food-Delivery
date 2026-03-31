@@ -1,29 +1,43 @@
 function Header() {
   const scrollToMenu = () => {
-  const section = document.getElementById("menu-section");
-  section?.scrollIntoView({ behavior: "smooth" });
-};
+    const section = document.getElementById("menu-section");
+    section?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <>
-      <div className="w-full max-w-6xl mx-auto md:h-110 h-60 sm:h-80 bg-[url('/header_img.png')] mt-2 bg-cover bg-center rounded-2xl p-5 relative">
-        <div className="text-white font-bold w-fit shadow-[0_0_10px_rgba(0,0,0,0.1)] p-1 md:p-2 md:text-6xl text-4xl max-w-4xl">
-          <p className="">Craving something amazing?</p>
-          <p className="hidden sm:block"> Order now. Eat happy.</p>
-        </div>
-        <div className="mt-5">
-          <p
-            className="text-white text-lg w-110 md:w-190 font-semibold font-outfit hidden sm:block md:text-2xl"
-            style={{ textShadow: "2px 2px 8px rgba(0,0,0,0.1)" }}
-          >
+    <div className="w-full max-w-6xl mx-auto md:h-110 h-60 sm:h-80 bg-[url('/header_img.png')] mt-4 bg-cover bg-center rounded-3xl p-6 md:p-10 relative overflow-hidden shadow-2xl">
+      
+      {/* Content */}
+      <div className="relative z-10 flex flex-col h-full justify-between">
+        
+        {/* Heading */}
+        <div>
+          <p className="text-white font-extrabold text-4xl md:text-6xl leading-tight drop-shadow-lg">
+            Craving something amazing?
+          </p>
+          <p className="text-white font-extrabold text-4xl md:text-6xl leading-tight drop-shadow-lg hidden sm:block">
+            Order now. Eat happy.
+          </p>
+
+          {/* Subtitle */}
+          <p className="text-white/85 text-sm md:text-xl font-medium mt-3 max-w-xl hidden sm:block leading-relaxed drop-shadow-md">
             Choose your favorite meal from our carefully crafted menu and enjoy
             delicious food delivered straight to your door.
           </p>
-          <button className="border-none bg-white py-2 px-5 rounded-3xl w-fit mt-3 md:mt-20 sm:mt-10 ml-0 md:ml-5 sm:ml-0 text-gray-800 cursor-pointer" onClick={scrollToMenu}>
-            View Menu
+        </div>
+
+        {/* Button */}
+        <div className="mb-2">
+          <button
+            onClick={scrollToMenu}
+            className="bg-orange-500 hover:bg-orange-600 active:scale-95 text-white font-semibold px-7 py-2.5 rounded-full shadow-lg shadow-orange-400/40 transition-all duration-200 hover:scale-105 text-sm md:text-base"
+          >
+            🍽️ View Menu
           </button>
         </div>
+
       </div>
-    </>
+    </div>
   );
 }
 

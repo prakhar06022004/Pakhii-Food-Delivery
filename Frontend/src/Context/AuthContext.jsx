@@ -1,11 +1,14 @@
 import { createContext } from "react";
-export const AuthContext = createContext(null);
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
-const AuthProvider = ({ children }) => {
-  const [userData, setUserData] = useState(null);
+import { useContext } from "react";
+import { StoreContext } from "./StoreContext";
+export const AuthContext = createContext(null);
 
+const AuthProvider = ({ children }) => {
+  const [signInPopUp, setSignInPopUp] = useState(false);
+  const [userData, setUserData] = useState(null);
   const getUser = async () => {
     try {
       const response = await axios.get("http://localhost:5000/api/user/me", {
@@ -24,7 +27,8 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     getUser();
   }, []);
-  const signUpUser = async () => {
+
+  const signUpUser = async ({ setData, data }) => {
     try {
       const signUp = await axios.post(
         "http://localhost:5000/api/user/register",
@@ -33,14 +37,19 @@ const AuthProvider = ({ children }) => {
           withCredentials: true,
         },
       );
-      await getUser(); //IMPORTANT
+      setData({
+        name: "",
+        email: "",
+        password: "",
+      });
+
       console.log(signUp);
     } catch (error) {
       console.log(error.message);
     }
   };
 
-  const loginUser = async () => {
+  const loginUser = async ({ setData, data }) => {
     try {
       const login = await axios.post(
         "http://localhost:5000/api/user/login",
@@ -50,6 +59,11 @@ const AuthProvider = ({ children }) => {
         },
       );
       await getUser();
+      setData({
+        email: "",
+        password: "",
+      });
+      setSignInPopUp(false);
       console.log(login);
     } catch (error) {
       console.log(error.message);
@@ -58,14 +72,14 @@ const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      const res = await axios.post(
+      await axios.post(
         "http://localhost:5000/api/user/logout",
         {},
         { withCredentials: true },
       );
-      console.log("logout response:", res.data);
-      setUserData(null);
       await getUser();
+      setUserData(null);
+      setSignInPopUp(false);
     } catch (error) {
       console.log(error.message);
     }
@@ -78,6 +92,8 @@ const AuthProvider = ({ children }) => {
         logout,
         loginUser,
         signUpUser,
+        signInPopUp,
+        setSignInPopUp,
       }}
     >
       {children}

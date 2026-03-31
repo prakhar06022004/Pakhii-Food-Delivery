@@ -4,7 +4,7 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import { CartContext } from "../../Context/CartContext";
 
 function PlaceOrder() {
-  const { getTotalAmount } = useContext(CartContext);
+  const { totalAmount } = useContext(CartContext);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -193,7 +193,7 @@ function PlaceOrder() {
 
           <div className="flex justify-between">
             <p className="text-gray-800">Subtotal</p>
-            <span>${getTotalAmount()}</span>
+            <span>${totalAmount}</span>
           </div>
 
           <hr className="text-gray-500" />
@@ -207,7 +207,7 @@ function PlaceOrder() {
 
           <div className="font-semibold flex justify-between font-mono text-lg">
             <p>Total</p>
-            <span>${getTotalAmount() + 2}</span>
+            <span>${totalAmount + 2}</span>
           </div>
           <hr className="text-gray-200" />
           <button className="bg-orange-500 text-white py-1.5 px-4 rounded-lg mt-2 cursor-pointer hover:bg-orange-600 duration-150 md:py-2">

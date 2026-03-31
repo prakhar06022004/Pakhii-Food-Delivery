@@ -7,10 +7,10 @@ import { useContext } from "react";
 import { StoreContext } from "./Context/StoreContext";
 import LoginPopUp from "./Components/LoginPopUp/LoginPopUp";
 import SideBarOpenComp from "../src/Components/SidebarOpen/SideBarOpenComp";
+import { AuthContext } from "./Context/AuthContext";
 function App() {
-  const { setSidebarOpen, signInPopUp, sidebarOpen, setSignInPopUp } =
-    useContext(StoreContext);
-
+  const { setSidebarOpen, sidebarOpen } = useContext(StoreContext);
+  const { signInPopUp, setSignInPopUp } = useContext(AuthContext);
   return (
     <>
       {signInPopUp && <LoginPopUp setSignInPopUp={setSignInPopUp} />}

@@ -3,10 +3,15 @@ import { navLinks } from "../NavOptionLinks/NavOptionLinks";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { GrLogout } from "react-icons/gr";
+import { useContext } from "react";
+import { AuthContext } from "../../Context/AuthContext";
 
 const SideBarOpenComp = ({ sidebarOpen, setSidebarOpen }) => {
   const [menu, setMenu] = useState("Home");
+
   const navigate = useNavigate();
+
+  const { logout, userData } = useContext(AuthContext);
 
   useEffect(() => {
     document.body.style.overflow = sidebarOpen ? "hidden" : "";
@@ -114,12 +119,19 @@ const SideBarOpenComp = ({ sidebarOpen, setSidebarOpen }) => {
                 </li>
               );
             })}
-            <div className="absolute bottom-5 right-5">
-              <button className="flex items-center gap-2 px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded-xl shadow-lg shadow-orange-300 hover:scale-105 active:scale-95 transition-all duration-200">
-                <GrLogout className="text-base" />
-                <span>Logout</span>
-              </button>
-            </div>
+            {userData && (
+              <div
+                className="absolute bottom-5 right-5"
+                onClick={() => {
+                  (logout(), setSidebarOpen(false));
+                }}
+              >
+                <button className="flex items-center gap-2 px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded-xl shadow-lg shadow-orange-300 hover:scale-105 active:scale-95 transition-all duration-200">
+                  <GrLogout className="text-base" />
+                  <span>Logout</span>
+                </button>
+              </div>
+            )}
           </ul>
         </nav>
 

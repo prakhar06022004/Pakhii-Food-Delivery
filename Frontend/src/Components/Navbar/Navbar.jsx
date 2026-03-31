@@ -10,7 +10,6 @@ import { GrLogout } from "react-icons/gr";
 import { CartContext } from "../../Context/CartContext";
 import { AuthContext } from "../../Context/AuthContext";
 function Navbar({ setSidebarOpen, setSignInPopUp }) {
-  const [isLoading, setIsLoading] = useState(false);
 
   const [isListening, setIsListening] = useState(false);
 

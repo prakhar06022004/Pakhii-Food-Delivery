@@ -6,7 +6,7 @@ import CartItems from "./CartItems";
 import { CartContext } from "../../Context/CartContext";
 
 function Cart() {
-  const { cartItems, getTotalAmount } = useContext(CartContext);
+  const { cartItems, totalAmount } = useContext(CartContext);
   const navigate = useNavigate();
 
   return (
@@ -54,7 +54,7 @@ function Cart() {
               <div className="flex justify-between text-gray-600">
                 <p>Subtotal</p>
                 <span className="font-medium text-gray-800">
-                  ${getTotalAmount()}
+                  ${totalAmount}
                 </span>
               </div>
               <hr className="border-gray-100" />
@@ -68,7 +68,7 @@ function Cart() {
               <div className="flex justify-between text-gray-900 font-bold text-lg">
                 <p>Total</p>
                 <span className="text-orange-500">
-                  ${getTotalAmount() + 2}
+                  ${totalAmount + 2}
                 </span>
               </div>
 

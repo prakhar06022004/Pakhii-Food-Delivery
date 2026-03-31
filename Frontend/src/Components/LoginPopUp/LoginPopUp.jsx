@@ -41,9 +41,9 @@ const LoginPopUp = ({ setSignInPopUp }) => {
     }
 
     if (currState === "SignUp") {
-      signUpUser();
+      signUpUser({ setData, data });
     } else {
-      loginUser();
+      loginUser({ setData, data });
     }
   };
 

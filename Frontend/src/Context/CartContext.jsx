@@ -5,6 +5,7 @@ import { useMemo } from "react";
 export const CartContext = createContext(null);
 const CartStoreProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
+
   const addToCart = (itemId) => {
     setCartItems((prev) => {
       if (!prev[itemId]) {
@@ -33,23 +34,23 @@ const CartStoreProvider = ({ children }) => {
     });
   };
 
-  const getTotalAmount = useMemo(() => {
-    let totalAmount = 0;
+  const totalAmount = useMemo(() => {
+    let sum = 0;
     for (let item in cartItems) {
       if (cartItems[item] > 0) {
         let itemInfo = food_list.find((product) => product._id === item);
-        totalAmount += itemInfo.price * cartItems[item];
+        sum += itemInfo.price * cartItems[item];
       }
     }
-    return totalAmount;
-  });
+    return sum;
+  },[cartItems]);
 
   const CartContextValue = useMemo(
     () => ({
       cartItems,
       addToCart,
       completeRemoveCart,
-      getTotalAmount,
+      totalAmount,
       removeFromCart,
     }),
     [cartItems],
