@@ -36,7 +36,7 @@ const registerUser = async (req, res) => {
     const token = generateToken(newUser._id);
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,
+      secure: false,
       sameSite: "strict",
     });
     console.log(newUser);
@@ -80,11 +80,11 @@ const loginUser = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Password did not match" });
     }
-    
+
     const token = generateToken(user._id);
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,
+      secure: false,
       sameSite: "strict",
     });
 
@@ -93,7 +93,6 @@ const loginUser = async (req, res) => {
       message: "Login successful",
       token,
     });
-
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -102,4 +101,26 @@ const loginUser = async (req, res) => {
   }
 };
 
-export { registerUser, loginUser };
+const meData = async (req, res) => {
+  try {
+    const user = await userModel
+      .findById(req.userId)
+      .select("-password");
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        user: null,
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+export { registerUser, loginUser, meData };
