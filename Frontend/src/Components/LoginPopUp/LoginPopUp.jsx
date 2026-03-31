@@ -2,19 +2,19 @@ import { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { MdLogin } from "react-icons/md";
 import { LiaSignInAltSolid } from "react-icons/lia";
-import axios from "axios";
+import { useContext } from "react";
+import { AuthContext } from "../../Context/AuthContext";
 const LoginPopUp = ({ setSignInPopUp }) => {
   const [currState, setCurrState] = useState("Login");
   const [error, setError] = useState({ name: "", email: "", password: "" });
+  const { loginUser, signUpUser } = useContext(AuthContext);
   const [data, setData] = useState({
     name: "",
     email: "",
     password: "",
   });
-
   const handleSubmit = (e) => {
     e.preventDefault();
-
     let newErrors = {
       name: "",
       email: "",
@@ -39,37 +39,6 @@ const LoginPopUp = ({ setSignInPopUp }) => {
     if (newErrors.name || newErrors.email || newErrors.password) {
       return;
     }
-
-    const signUpUser = async () => {
-      try {
-        const signUp = await axios.post(
-          "http://localhost:5000/api/user/register",
-          data,
-          {
-            withCredentials: true,
-          },
-        );
-        console.log(signUp);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-
-    const loginUser = async () => {
-      try {
-        const login = await axios.post(
-          "http://localhost:5000/api/user/login",
-          data,
-          {
-            withCredentials: true,
-          },
-        );
-        window.location.reload();
-        console.log(login);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
 
     if (currState === "SignUp") {
       signUpUser();

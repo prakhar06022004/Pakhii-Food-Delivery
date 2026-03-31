@@ -5,7 +5,6 @@ const StoreProvider = ({ children }) => {
   const [search, setSearch] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [signInPopUp, setSignInPopUp] = useState(false);
- 
 
   const contextValue = {
     food_list,

@@ -6,19 +6,19 @@ import { StoreContext } from "../../Context/StoreContext";
 import { IoIosSearch } from "react-icons/io";
 import { navLinks } from "../NavOptionLinks/NavOptionLinks";
 import { FaMicrophone } from "react-icons/fa";
+import { GrLogout } from "react-icons/gr";
 import { CartContext } from "../../Context/CartContext";
-import axios from "axios";
-import { useEffect } from "react";
+import { AuthContext } from "../../Context/AuthContext";
 function Navbar({ setSidebarOpen, setSignInPopUp }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const [userData, setUserData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [isListening, setIsListening] = useState(false);
 
   const { cartItems } = useContext(CartContext);
 
   const { search, setSearch } = useContext(StoreContext);
+
+  const { userData, logout } = useContext(AuthContext);
 
   const [menu, setMenu] = useState("Home");
 
@@ -53,25 +53,6 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
       setIsListening(false); // listening khatam → mic OFF
     };
   };
-
-  const getUser = async () => {
-    try {
-      const response = await axios.get("http://localhost:5000/api/user/me", {
-        withCredentials: true,
-      });
-      if (response.data.user) {
-        setUserData(response.data.user);
-        console.log(response.data.user);
-        setIsLoggedIn(true);
-        console.log(userData);
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-  useEffect(() => {
-    getUser();
-  }, []);
 
   const getTotalCartCount = () => {
     return Object.values(cartItems).reduce((acc, curr) => acc + curr, 0);
@@ -132,7 +113,7 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
               </span>
             )}
           </div>
-          {!isLoggedIn ? (
+          {!userData ? (
             <button
               className="border border-gray-500 text-gray-600 px-2 py-1 rounded-2xl cursor-pointer hover:bg-gray-200 duration-150 whitespace-nowrap z-99999"
               onClick={() => setSignInPopUp(true)}
@@ -141,8 +122,20 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
             </button>
           ) : (
             <>
-              <p className="text-black-800">{userData?.name}</p>
+              <div className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center shadow-md">
+                <p className="text-white text-sm font-bold uppercase">
+                  {userData.name.slice(0, 1)}
+                </p>
+              </div>{" "}
             </>
+          )}
+          {userData && (
+            <button
+              className="items-center gap-2 px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded-xl shadow-lg shadow-orange-300 hover:scale-105 active:scale-95 transition-all duration-200 hidden md:block"
+              onClick={logout}
+            >
+              <GrLogout className="text-base" />
+            </button>
           )}
 
           <RxHamburgerMenu

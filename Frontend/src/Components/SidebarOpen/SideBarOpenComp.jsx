@@ -2,6 +2,7 @@ import { RxCross2 } from "react-icons/rx";
 import { navLinks } from "../NavOptionLinks/NavOptionLinks";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { GrLogout } from "react-icons/gr";
 
 const SideBarOpenComp = ({ sidebarOpen, setSidebarOpen }) => {
   const [menu, setMenu] = useState("Home");
@@ -58,7 +59,7 @@ const SideBarOpenComp = ({ sidebarOpen, setSidebarOpen }) => {
         </div>
 
         {/* Nav Links */}
-        <nav className="flex-1 px-3 py-4 overflow-y-auto">
+        <nav className="flex-1 px-3 py-4 overflow-y-auto relative">
           <ul className="flex flex-col gap-1">
             {navLinks.map((option, i) => {
               const isActive = menu === option.label;
@@ -113,6 +114,12 @@ const SideBarOpenComp = ({ sidebarOpen, setSidebarOpen }) => {
                 </li>
               );
             })}
+            <div className="absolute bottom-5 right-5">
+              <button className="flex items-center gap-2 px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded-xl shadow-lg shadow-orange-300 hover:scale-105 active:scale-95 transition-all duration-200">
+                <GrLogout className="text-base" />
+                <span>Logout</span>
+              </button>
+            </div>
           </ul>
         </nav>
 
