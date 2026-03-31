@@ -7,8 +7,25 @@ import { IoIosSearch } from "react-icons/io";
 import { navLinks } from "../NavOptionLinks/NavOptionLinks";
 import { FaMicrophone } from "react-icons/fa";
 import { CartContext } from "../../Context/CartContext";
+import axios from "axios";
+import { useEffect } from "react";
 function Navbar({ setSidebarOpen, setSignInPopUp }) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const [userData, setUserData] = useState(null);
+
   const [isListening, setIsListening] = useState(false);
+
+  const { cartItems } = useContext(CartContext);
+
+  const { search, setSearch } = useContext(StoreContext);
+
+  const [menu, setMenu] = useState("Home");
+
+  const location = useLocation();
+
+  const navigate = useNavigate();
+
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
 
@@ -36,19 +53,29 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
       setIsListening(false); // listening khatam → mic OFF
     };
   };
-  const { cartItems } = useContext(CartContext);
 
-  const { search, setSearch } = useContext(StoreContext);
+  const getUser = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/api/user/me", {
+        withCredentials: true,
+      });
+      if (response.data.user) {
+        setUserData(response.data.user);
+        console.log(response.data.user);
+        setIsLoggedIn(true);
+        console.log(userData);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  useEffect(() => {
+    getUser();
+  }, []);
 
   const getTotalCartCount = () => {
     return Object.values(cartItems).reduce((acc, curr) => acc + curr, 0);
   };
-
-  const [menu, setMenu] = useState("Home");
-
-  const location = useLocation();
-
-  const navigate = useNavigate();
 
   const navItemClass = (item) =>
     `relative cursor-pointer
@@ -105,12 +132,19 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
               </span>
             )}
           </div>
-          <button
-            className="border border-gray-500 text-gray-600 px-2 py-1 rounded-2xl cursor-pointer hover:bg-gray-200 duration-150 whitespace-nowrap z-99999"
-            onClick={() => setSignInPopUp(true)}
-          >
-            Sign In
-          </button>
+          {!isLoggedIn ? (
+            <button
+              className="border border-gray-500 text-gray-600 px-2 py-1 rounded-2xl cursor-pointer hover:bg-gray-200 duration-150 whitespace-nowrap z-99999"
+              onClick={() => setSignInPopUp(true)}
+            >
+              Sign In
+            </button>
+          ) : (
+            <>
+              <p className="text-black-800">{userData?.name}</p>
+            </>
+          )}
+
           <RxHamburgerMenu
             className="md:hidden cursor-pointer"
             size={25}

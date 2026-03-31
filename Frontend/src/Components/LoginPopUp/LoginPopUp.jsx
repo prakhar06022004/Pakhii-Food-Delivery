@@ -6,7 +6,7 @@ import axios from "axios";
 const LoginPopUp = ({ setSignInPopUp }) => {
   const [currState, setCurrState] = useState("Login");
   const [error, setError] = useState({ name: "", email: "", password: "" });
-  const [formData, setFormData] = useState({
+  const [data, setData] = useState({
     name: "",
     email: "",
     password: "",
@@ -21,15 +21,15 @@ const LoginPopUp = ({ setSignInPopUp }) => {
       password: "",
     };
 
-    if (currState === "SignUp" && !formData.name) {
+    if (currState === "SignUp" && !data.name) {
       newErrors.name = "Please enter your name.";
     }
 
-    if (!formData.email) {
+    if (!data.email) {
       newErrors.email = "Please enter your email address.";
     }
 
-    if (!formData.password) {
+    if (!data.password) {
       newErrors.password = "Please enter your password.";
     }
 
@@ -44,19 +44,27 @@ const LoginPopUp = ({ setSignInPopUp }) => {
       try {
         const signUp = await axios.post(
           "http://localhost:5000/api/user/register",
-          formData,
+          data,
+          {
+            withCredentials: true,
+          },
         );
         console.log(signUp);
       } catch (error) {
         console.log(error.message);
       }
     };
+
     const loginUser = async () => {
       try {
         const login = await axios.post(
           "http://localhost:5000/api/user/login",
-          formData,
+          data,
+          {
+            withCredentials: true,
+          },
         );
+        window.location.reload();
         console.log(login);
       } catch (error) {
         console.log(error.message);
@@ -71,8 +79,8 @@ const LoginPopUp = ({ setSignInPopUp }) => {
   };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
+    setData({
+      ...data,
       [e.target.name]: e.target.value,
     });
   };
@@ -106,6 +114,7 @@ const LoginPopUp = ({ setSignInPopUp }) => {
             </span>
           )}
         </h1>
+
         <form className="mt-7" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-6">
             {currState === "SignUp" && (
@@ -114,7 +123,7 @@ const LoginPopUp = ({ setSignInPopUp }) => {
                 placeholder="Enter your name"
                 className="shadow-[0_0_15px_rgba(0,0,0,0.2)] p-3 rounded-2xl outline-none"
                 name="name"
-                value={formData.name}
+                value={data.name}
                 onChange={handleChange}
               />
             )}
@@ -130,7 +139,7 @@ const LoginPopUp = ({ setSignInPopUp }) => {
               placeholder="Enter your email"
               className="shadow-[0_0_15px_rgba(0,0,0,0.2)] p-3 rounded-2xl outline-none"
               name="email"
-              value={currState === "Login" ? formData.email : formData.email}
+              value={currState === "Login" ? data.email : data.email}
               onChange={handleChange}
             />
             {error.email && (
@@ -144,9 +153,7 @@ const LoginPopUp = ({ setSignInPopUp }) => {
               placeholder="Enter your password"
               name="password"
               className="shadow-[0_0_15px_rgba(0,0,0,0.2)] p-3 rounded-2xl outline-none"
-              value={
-                currState === "Login" ? formData.password : formData.password
-              }
+              value={currState === "Login" ? data.password : data.password}
               onChange={handleChange}
             />
             {error.password && (
@@ -175,7 +182,7 @@ const LoginPopUp = ({ setSignInPopUp }) => {
           <span
             onClick={() => {
               setCurrState(currState === "Login" ? "SignUp" : "Login");
-              setFormData({
+              setData({
                 name: "",
                 email: "",
                 password: "",
