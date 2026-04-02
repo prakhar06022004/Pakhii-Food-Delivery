@@ -10,7 +10,6 @@ import { GrLogout } from "react-icons/gr";
 import { CartContext } from "../../Context/CartContext";
 import { AuthContext } from "../../Context/AuthContext";
 function Navbar({ setSidebarOpen, setSignInPopUp }) {
-
   const [isListening, setIsListening] = useState(false);
 
   const { cartItems } = useContext(CartContext);
@@ -106,7 +105,7 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
           <div className="relative" onClick={() => navigate("/cart")}>
             <IoMdCart size={28} className="cursor-pointer" />
 
-            {getTotalCartCount() > 0 && (
+            {userData  && getTotalCartCount() > 0 && (
               <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
                 {getTotalCartCount()}
               </span>
@@ -131,7 +130,10 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
           {userData && (
             <button
               className="items-center gap-2 px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded-xl shadow-lg shadow-orange-300 hover:scale-105 active:scale-95 transition-all duration-200 hidden md:block"
-              onClick={logout}
+              onClick={async () => {
+                await logout();
+                navigate("/");
+              }}
             >
               <GrLogout className="text-base" />
             </button>

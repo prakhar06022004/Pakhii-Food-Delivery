@@ -2,9 +2,27 @@ import { createContext } from "react";
 import { food_list } from "../assets/frontend_assets/assets";
 import { useState } from "react";
 import { useMemo } from "react";
+import axios from "axios";
+import { useEffect } from "react";
+
 export const CartContext = createContext(null);
+
 const CartStoreProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
+
+  useEffect(() => {
+    const cartAccess = async () => {
+      try {
+        const cart = await axios.get("http://localhost:5000/api/cart/", {
+          withCredentials: true,
+        });
+        console.log(cart.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    cartAccess();
+  }, []);
 
   const addToCart = (itemId) => {
     setCartItems((prev) => {
@@ -43,7 +61,7 @@ const CartStoreProvider = ({ children }) => {
       }
     }
     return sum;
-  },[cartItems]);
+  }, [cartItems]);
 
   const CartContextValue = useMemo(
     () => ({
