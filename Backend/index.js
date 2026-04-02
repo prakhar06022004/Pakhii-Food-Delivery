@@ -5,6 +5,7 @@ import { connectDB } from "./Config/databaseConnect.js";
 import foodRouter from "./Routes/foodRoute.js";
 import userRouter from "./Routes/userRoute.js";
 import cookieParser from "cookie-parser";
+import cartRouter from "./Routes/cartRoute.js";
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ const startServer = async () => {
   await connectDB();
   app.use("/api/food",  foodRouter);
   app.use("/api/user", userRouter);
+  app.use("/api/cart", cartRouter);
   app.listen(port, () => {
     console.log(`Server Listening on this PORT: ${port}`);
   });
