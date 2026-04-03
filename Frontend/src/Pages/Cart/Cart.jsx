@@ -11,9 +11,9 @@ function Cart() {
   const { userData } = useContext(AuthContext);
   const navigate = useNavigate();
 
+
   return (
     <>
-      {" "}
       <button
         onClick={() => navigate("/")}
         className="flex items-center gap-2 absolute left-4 text-gray-500 hover:text-orange-500 transition-colors duration-200 mb-6 group"

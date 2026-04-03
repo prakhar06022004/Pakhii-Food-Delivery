@@ -9,12 +9,14 @@ import { FaMicrophone } from "react-icons/fa";
 import { GrLogout } from "react-icons/gr";
 import { CartContext } from "../../Context/CartContext";
 import { AuthContext } from "../../Context/AuthContext";
+import { ClipLoader } from "react-spinners";
+
 function Navbar({ setSidebarOpen, setSignInPopUp }) {
   const [isListening, setIsListening] = useState(false);
 
   const { cartItems } = useContext(CartContext);
 
-  const { search, setSearch } = useContext(StoreContext);
+  const { search, setSearch, isLoading } = useContext(StoreContext);
 
   const { userData, logout } = useContext(AuthContext);
 
@@ -105,7 +107,7 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
           <div className="relative" onClick={() => navigate("/cart")}>
             <IoMdCart size={28} className="cursor-pointer" />
 
-            {userData  && getTotalCartCount() > 0 && (
+            {userData && getTotalCartCount() > 0 && (
               <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
                 {getTotalCartCount()}
               </span>
@@ -124,7 +126,7 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
                 <p className="text-white text-sm font-bold uppercase">
                   {userData.name.slice(0, 1)}
                 </p>
-              </div>{" "}
+              </div>
             </>
           )}
           {userData && (

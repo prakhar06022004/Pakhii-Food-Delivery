@@ -8,6 +8,7 @@ import { StoreContext } from "./Context/StoreContext";
 import LoginPopUp from "./Components/LoginPopUp/LoginPopUp";
 import SideBarOpenComp from "../src/Components/SidebarOpen/SideBarOpenComp";
 import { AuthContext } from "./Context/AuthContext";
+
 function App() {
   const { setSidebarOpen, sidebarOpen } = useContext(StoreContext);
   const { signInPopUp, setSignInPopUp } = useContext(AuthContext);

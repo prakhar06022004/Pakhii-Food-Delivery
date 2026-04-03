@@ -9,21 +9,27 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const [signInPopUp, setSignInPopUp] = useState(false);
   const [userData, setUserData] = useState(null);
+  const { setIsLoading } = useContext(StoreContext);
   const getUser = async () => {
+    setIsLoading(true);
     try {
       const response = await axios.get("http://localhost:5000/api/user/me", {
         withCredentials: true,
       });
       if (response.data.user) {
         setUserData(response.data.user);
+        setIsLoading(false);
       } else {
         setUserData(null);
       }
     } catch (error) {
       setUserData(null);
       console.log(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
+  
   useEffect(() => {
     getUser();
   }, []);
