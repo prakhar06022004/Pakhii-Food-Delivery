@@ -5,8 +5,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { CartContext } from "../../Context/CartContext";
 
 const CartItems = ({ item, qty }) => {
-  const { addToCart, removeFromCart, completeRemoveCart } =
-    useContext(CartContext);
+  const { addToCart, removeFromCart, completeRemoveCart } = useContext(CartContext);
 
   const itemCountIncrease = (id) => {
     addToCart(id);

@@ -1,14 +1,15 @@
 import { useContext } from "react";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
-import { food_list } from "../../assets/frontend_assets/assets";
 import CartItems from "./CartItems";
 import { CartContext } from "../../Context/CartContext";
 import { AuthContext } from "../../Context/AuthContext";
+import { FoodContext } from "../../Context/FoodContext";
 
 function Cart() {
   const { cartItems, totalAmount } = useContext(CartContext);
   const { userData } = useContext(AuthContext);
+  const {foodListBackend} = useContext(FoodContext)
   const navigate = useNavigate();
 
 
@@ -37,7 +38,7 @@ function Cart() {
 
                 {/* Cart Items List */}
                 <div className="flex flex-col gap-3">
-                  {food_list.map((foodItems) => {
+                  {foodListBackend.map((foodItems) => {
                     if (cartItems[foodItems._id] > 0) {
                       return (
                         <CartItems

@@ -1,29 +1,11 @@
 import { useContext } from "react";
 import { StoreContext } from "../../Context/StoreContext";
 import FoodItems from "../../FoodItems/FoodItems";
-import { useEffect } from "react";
-import { useState } from "react";
-import axios from "axios";
+import FoodProvider, { FoodContext } from "../../Context/FoodContext";
 
 const FoodDisplay = ({ category }) => {
   const { search } = useContext(StoreContext);
-  const [foodListBackend, setFoodListBackend] = useState([]);
-
-  useEffect(() => {
-    const response = async () => {
-      try {
-        const foodData = await axios.get(
-          "http://localhost:5000/api/food/list",
-          { withCredentials: true },
-        );
-        setFoodListBackend(foodData?.data?.data);
-        console.log(foodData?.data?.data)
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    response();
-  }, []);
+  const { foodListBackend } = useContext(FoodContext);
 
   const filterSearch = foodListBackend.filter((item) =>
     item.name.toLowerCase().includes(search.toLowerCase()),

@@ -1,13 +1,14 @@
 import { createContext } from "react";
-import { food_list } from "../assets/frontend_assets/assets";
 import { useState } from "react";
 import { useMemo } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import { useContext } from "react";
+import { FoodContext } from "./FoodContext";
 
 export const CartContext = createContext(null);
-
 const CartStoreProvider = ({ children }) => {
+  const { foodListBackend } = useContext(FoodContext);
   const [cartItems, setCartItems] = useState({});
 
   useEffect(() => {
@@ -52,16 +53,21 @@ const CartStoreProvider = ({ children }) => {
     });
   };
 
-  const totalAmount = useMemo(() => {
-    let sum = 0;
-    for (let item in cartItems) {
-      if (cartItems[item] > 0) {
-        let itemInfo = food_list.find((product) => product._id === item);
-        sum += itemInfo.price * cartItems[item];
+  const totalAmount = useMemo(
+    () => {
+      let sum = 0;
+      for (let item in cartItems) {
+        if (cartItems[item] > 0) {
+          let itemInfo = foodListBackend.find(
+            (product) => product._id.toString() === item.toString(),
+          );
+          sum += itemInfo.price * cartItems[item];
+        }
       }
-    }
-    return sum;
-  }, [cartItems]);
+      return sum;
+    },
+    [cartItems, foodListBackend],
+  );
 
   const CartContextValue = useMemo(
     () => ({
