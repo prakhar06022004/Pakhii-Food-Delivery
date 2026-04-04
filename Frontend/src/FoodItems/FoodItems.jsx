@@ -20,7 +20,7 @@ const FoodItems = ({ id, name, price, image, description }) => {
         />
         {/* Price Badge */}
         <div className="absolute top-3 right-3 bg-orange-500 text-white text-sm font-bold px-3 py-1 rounded-full shadow">
-          ${price}
+          ₹{price}
         </div>
       </div>
 

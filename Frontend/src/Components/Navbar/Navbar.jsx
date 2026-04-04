@@ -16,7 +16,7 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
 
   const { cartItems } = useContext(CartContext);
 
-  const { search, setSearch, isLoading } = useContext(StoreContext);
+  const { search, setSearch } = useContext(StoreContext);
 
   const { userData, logout } = useContext(AuthContext);
 
@@ -79,7 +79,7 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
   return (
     <div className="sticky top-0 z-999 bg-white pb-2">
       <div className="flex font-outfit md:justify-around justify-between py-3 p-4 items-center select-none ">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 cursor-pointer" onClick={()=>navigate("/")}>
           <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-linear-to-br from-orange-400 to-orange-600 shadow-md shadow-orange-200 shrink-0">
             <span className="text-white font-extrabold text-xl leading-none">
               P
@@ -131,7 +131,7 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
           )}
           {userData && (
             <button
-              className="items-center gap-2 px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded-xl shadow-lg shadow-orange-300 hover:scale-105 active:scale-95 transition-all duration-200 hidden md:block"
+              className="items-center gap-2 px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded-xl shadow-lg shadow-orange-300 hover:scale-105 active:scale-95 transition-all duration-200 hidden md:block cursor-pointer"
               onClick={async () => {
                 await logout();
                 navigate("/");

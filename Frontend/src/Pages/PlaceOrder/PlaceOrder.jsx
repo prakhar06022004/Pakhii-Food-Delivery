@@ -193,21 +193,21 @@ function PlaceOrder() {
 
           <div className="flex justify-between">
             <p className="text-gray-800">Subtotal</p>
-            <span>${totalAmount}</span>
+            <span>₹{totalAmount}</span>
           </div>
 
           <hr className="text-gray-500" />
 
           <div className="flex justify-between">
             <p className="text-gray-800">Delivery Fee</p>
-            <span>$2</span>
+            <span>₹2</span>
           </div>
 
           <hr className="text-gray-500" />
 
           <div className="font-semibold flex justify-between font-mono text-lg">
             <p>Total</p>
-            <span>${totalAmount + 2}</span>
+            <span>₹{totalAmount + 2}</span>
           </div>
           <hr className="text-gray-200" />
           <button className="bg-orange-500 text-white py-1.5 px-4 rounded-lg mt-2 cursor-pointer hover:bg-orange-600 duration-150 md:py-2">

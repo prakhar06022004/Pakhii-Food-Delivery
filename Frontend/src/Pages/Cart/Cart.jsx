@@ -62,21 +62,21 @@ function Cart() {
                     <div className="flex justify-between text-gray-600">
                       <p>Subtotal</p>
                       <span className="font-medium text-gray-800">
-                        ${totalAmount}
+                        ₹{totalAmount}
                       </span>
                     </div>
                     <hr className="border-gray-100" />
 
                     <div className="flex justify-between text-gray-600">
                       <p>Delivery Fee</p>
-                      <span className="font-medium text-gray-800">$2.00</span>
+                      <span className="font-medium text-gray-800">₹2.00</span>
                     </div>
                     <hr className="border-gray-100" />
 
                     <div className="flex justify-between text-gray-900 font-bold text-lg">
                       <p>Total</p>
                       <span className="text-orange-500">
-                        ${totalAmount + 2}
+                        ₹{totalAmount + 2}
                       </span>
                     </div>
 

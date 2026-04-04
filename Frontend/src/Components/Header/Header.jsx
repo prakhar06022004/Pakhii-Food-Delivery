@@ -30,7 +30,7 @@ function Header() {
         <div className="mb-2">
           <button
             onClick={scrollToMenu}
-            className="bg-orange-500 hover:bg-orange-600 active:scale-95 text-white font-semibold px-7 py-2.5 rounded-full shadow-lg shadow-orange-400/40 transition-all duration-200 hover:scale-105 text-sm md:text-base"
+            className="bg-orange-500 hover:bg-orange-600 active:scale-95 text-white font-semibold px-7 py-2.5 rounded-full shadow-lg shadow-orange-400/40 transition-all duration-200 hover:scale-105 text-sm md:text-base cursor-pointer"
           >
             🍽️ View Menu
           </button>
