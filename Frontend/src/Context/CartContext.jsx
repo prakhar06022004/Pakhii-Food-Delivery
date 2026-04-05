@@ -11,13 +11,35 @@ const CartStoreProvider = ({ children }) => {
   const { foodListBackend } = useContext(FoodContext);
   const [cartItems, setCartItems] = useState({});
 
+  const addToCart = async (itemId) => {
+    try {
+      const addCartItem = await axios.post(
+        "http://localhost:5000/api/cart/add",
+        { itemId },
+        { withCredentials: true },
+      );
+      setCartItems((prev) => {
+        if (!prev[itemId]) {
+          return { ...prev, [itemId]: 1 };
+        } else {
+          return { ...prev, [itemId]: prev[itemId] + 1 };
+        }
+      });
+
+      console.log(addCartItem.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   useEffect(() => {
     const cartAccess = async () => {
       try {
-        const cart = await axios.get("http://localhost:5000/api/cart/", {
+        const res = await axios.get("http://localhost:5000/api/cart/", {
           withCredentials: true,
         });
-        console.log(cart.data);
+        setCartItems(res.data.data || {});
+        console.log(res.data);
       } catch (error) {
         console.log(error.message);
       }
@@ -25,49 +47,49 @@ const CartStoreProvider = ({ children }) => {
     cartAccess();
   }, []);
 
-  const addToCart = (itemId) => {
-    setCartItems((prev) => {
-      if (!prev[itemId]) {
-        return { ...prev, [itemId]: 1 };
-      } else {
-        return { ...prev, [itemId]: prev[itemId] + 1 };
+  const removeFromCart = async (itemId) => {
+    try {
+      await axios.post(
+        "http://localhost:5000/api/cart/removeCount",
+        { itemId },
+        { withCredentials: true },
+      );
+      setCartItems((prev) => {
+        if (!prev[itemId]) return;
+        const updateCart = { ...prev, [itemId]: prev[itemId] - 1 };
+        if (updateCart[itemId] <= 0) delete updateCart[itemId];
+        return updateCart;
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const completeRemoveCart = async (itemId) => {
+    try {
+      setCartItems((prev) => {
+        const updateCart = { ...prev };
+        delete updateCart[itemId];
+        return updateCart;
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const totalAmount = useMemo(() => {
+    let sum = 0;
+    for (let item in cartItems) {
+      if (cartItems[item] > 0) {
+        let itemInfo = foodListBackend.find(
+          (product) => product._id.toString() === item.toString(),
+        );
+        if (!itemInfo) continue;
+        sum += itemInfo.price * cartItems[item];
       }
-    });
-  };
-
-  const removeFromCart = (itemId) => {
-    setCartItems((prev) => {
-      if (!prev[itemId]) return prev;
-      const updateCart = { ...prev, [itemId]: prev[itemId] - 1 };
-
-      if (updateCart[itemId] <= 0) delete updateCart[itemId];
-      return updateCart;
-    });
-  };
-
-  const completeRemoveCart = (itemId) => {
-    setCartItems((prev) => {
-      const updateCart = { ...prev };
-      delete updateCart[itemId];
-      return updateCart;
-    });
-  };
-
-  const totalAmount = useMemo(
-    () => {
-      let sum = 0;
-      for (let item in cartItems) {
-        if (cartItems[item] > 0) {
-          let itemInfo = foodListBackend.find(
-            (product) => product._id.toString() === item.toString(),
-          );
-          sum += itemInfo.price * cartItems[item];
-        }
-      }
-      return sum;
-    },
-    [cartItems, foodListBackend],
-  );
+    }
+    return sum;
+  }, [cartItems, foodListBackend]);
 
   const CartContextValue = useMemo(
     () => ({

@@ -79,7 +79,10 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
   return (
     <div className="sticky top-0 z-999 bg-white pb-2">
       <div className="flex font-outfit md:justify-around justify-between py-3 p-4 items-center select-none ">
-        <div className="flex items-center gap-2 cursor-pointer" onClick={()=>navigate("/")}>
+        <div
+          className="flex items-center gap-2 cursor-pointer"
+          onClick={() => navigate("/")}
+        >
           <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-linear-to-br from-orange-400 to-orange-600 shadow-md shadow-orange-200 shrink-0">
             <span className="text-white font-extrabold text-xl leading-none">
               P
