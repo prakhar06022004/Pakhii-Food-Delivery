@@ -124,6 +124,7 @@ const meData = async (req, res) => {
         user: null,
       });
     }
+    
     return res.status(200).json({
       success: true,
       user,
