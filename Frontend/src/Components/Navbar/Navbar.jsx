@@ -9,7 +9,7 @@ import { FaMicrophone } from "react-icons/fa";
 import { GrLogout } from "react-icons/gr";
 import { CartContext } from "../../Context/CartContext";
 import { AuthContext } from "../../Context/AuthContext";
-import { ClipLoader } from "react-spinners";
+import HashLoader from "react-spinners/HashLoader";
 
 function Navbar({ setSidebarOpen, setSignInPopUp }) {
   const [isListening, setIsListening] = useState(false);
@@ -18,7 +18,7 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
 
   const { search, setSearch } = useContext(StoreContext);
 
-  const { userData, logout } = useContext(AuthContext);
+  const { userData, logout, isAuthLoading } = useContext(AuthContext);
 
   const [menu, setMenu] = useState("Home");
 
@@ -116,7 +116,9 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
               </span>
             )}
           </div>
-          {!userData ? (
+          {isAuthLoading ? (
+            <HashLoader size={35} color="#f97316" />
+          ) : !userData ? (
             <button
               className="border border-gray-500 text-gray-600 px-2 py-1 rounded-2xl cursor-pointer hover:bg-gray-200 duration-150 whitespace-nowrap z-99999"
               onClick={() => setSignInPopUp(true)}
@@ -132,17 +134,22 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
               </div>
             </>
           )}
-          {userData && (
-            <button
-              className="items-center gap-2 px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded-xl shadow-lg shadow-orange-300 hover:scale-105 active:scale-95 transition-all duration-200 hidden md:block cursor-pointer"
-              onClick={async () => {
-                await logout();
-                navigate("/");
-              }}
-            >
-              <GrLogout className="text-base" />
-            </button>
-          )}
+
+         <div className="hidden md:block">
+  {isAuthLoading ? (
+    <HashLoader size={35} color="#f97316" />
+  ) : userData ? (
+    <button
+      className="items-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-xl"
+      onClick={async () => {
+        await logout();
+        navigate("/");
+      }}
+    >
+      Logout
+    </button>
+  ) : null}
+</div>
 
           <RxHamburgerMenu
             className="md:hidden cursor-pointer"

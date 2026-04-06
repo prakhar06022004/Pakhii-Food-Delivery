@@ -2,23 +2,19 @@ import { createContext } from "react";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useContext } from "react";
-import { StoreContext } from "./StoreContext";
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
   const [signInPopUp, setSignInPopUp] = useState(false);
   const [userData, setUserData] = useState(null);
-  const { setIsLoading } = useContext(StoreContext);
   const getUser = async () => {
-    setIsLoading(true);
     try {
       const response = await axios.get("http://localhost:5000/api/user/me", {
         withCredentials: true,
       });
       if (response.data.user) {
         setUserData(response.data.user);
-        setIsLoading(false);
       } else {
         setUserData(null);
       }
@@ -26,10 +22,10 @@ const AuthProvider = ({ children }) => {
       setUserData(null);
       console.log(error.message);
     } finally {
-      setIsLoading(false);
+      setIsAuthLoading(false);
     }
   };
-  
+
   useEffect(() => {
     getUser();
   }, []);
@@ -100,6 +96,7 @@ const AuthProvider = ({ children }) => {
         signUpUser,
         signInPopUp,
         setSignInPopUp,
+        isAuthLoading
       }}
     >
       {children}
