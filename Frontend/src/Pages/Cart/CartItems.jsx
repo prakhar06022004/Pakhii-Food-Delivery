@@ -5,16 +5,8 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { CartContext } from "../../Context/CartContext";
 
 const CartItems = ({ item, qty }) => {
-  const { addToCart, removeFromCart, completeRemoveCart } = useContext(CartContext);
-
-  const itemCountIncrease = (id) => {
-    addToCart(id);
-  };
-
-  const itemCountDecrease = (id) => {
-    if (qty === 0) return;
-    removeFromCart(id);
-  };
+  const { addToCart, removeFromCart, completeRemoveCart } =
+    useContext(CartContext);
 
   return (
     <div className="flex items-center justify-between bg-white rounded-2xl px-4 py-4 shadow-sm border border-gray-100 hover:border-orange-200 hover:shadow-md transition-all duration-200 select-none">
@@ -43,7 +35,7 @@ const CartItems = ({ item, qty }) => {
         {/* Quantity Controls */}
         <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-xl px-3 py-1.5">
           <button
-            onClick={() => itemCountDecrease(item._id)}
+            onClick={() => qty > 0 && removeFromCart(item._id)}
             className="w-6 h-6 flex items-center justify-center bg-red-100 hover:bg-red-200 rounded-full cursor-pointer transition-colors duration-150"
           >
             <FaMinus size={10} className="text-red-500" />
@@ -52,7 +44,7 @@ const CartItems = ({ item, qty }) => {
             {qty}
           </span>
           <button
-            onClick={() => itemCountIncrease(item._id)}
+            onClick={() => addToCart(item._id)}
             className="w-6 h-6 flex items-center justify-center bg-green-100 hover:bg-green-200 rounded-full cursor-pointer transition-colors duration-150"
           >
             <FaPlus size={10} className="text-green-600" />

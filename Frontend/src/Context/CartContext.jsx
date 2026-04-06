@@ -12,19 +12,19 @@ const CartStoreProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
 
   const addToCart = async (itemId) => {
+    setCartItems((prev) => {
+      if (!prev[itemId]) {
+        return { ...prev, [itemId]: 1 };
+      } else {
+        return { ...prev, [itemId]: prev[itemId] + 1 };
+      }
+    });
     try {
       const addCartItem = await axios.post(
         "http://localhost:5000/api/cart/add",
         { itemId },
         { withCredentials: true },
       );
-      setCartItems((prev) => {
-        if (!prev[itemId]) {
-          return { ...prev, [itemId]: 1 };
-        } else {
-          return { ...prev, [itemId]: prev[itemId] + 1 };
-        }
-      });
 
       console.log(addCartItem.data);
     } catch (error) {
@@ -49,17 +49,17 @@ const CartStoreProvider = ({ children }) => {
 
   const removeFromCart = async (itemId) => {
     try {
-      await axios.post(
-        "http://localhost:5000/api/cart/removeCount",
-        { itemId },
-        { withCredentials: true },
-      );
       setCartItems((prev) => {
         if (!prev[itemId]) return;
         const updateCart = { ...prev, [itemId]: prev[itemId] - 1 };
         if (updateCart[itemId] <= 0) delete updateCart[itemId];
         return updateCart;
       });
+      await axios.post(
+        "http://localhost:5000/api/cart/removeCount",
+        { itemId },
+        { withCredentials: true },
+      );
     } catch (error) {
       console.log(error.message);
     }
