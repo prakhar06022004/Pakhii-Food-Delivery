@@ -1,11 +1,12 @@
 import { useContext } from "react";
 import { StoreContext } from "../../Context/StoreContext";
 import FoodItems from "../../FoodItems/FoodItems";
-import FoodProvider, { FoodContext } from "../../Context/FoodContext";
+import { FoodContext } from "../../Context/FoodContext";
+import HashLoader from "react-spinners/HashLoader";
 
 const FoodDisplay = ({ category }) => {
   const { search } = useContext(StoreContext);
-  const { foodListBackend } = useContext(FoodContext);
+  const { foodListBackend, isFoodLoading } = useContext(FoodContext);
 
   const filterSearch = foodListBackend.filter((item) =>
     item.name.toLowerCase().includes(search.toLowerCase()),
@@ -13,7 +14,11 @@ const FoodDisplay = ({ category }) => {
 
   return (
     <>
-      {filterSearch.length === 0 ? (
+      {isFoodLoading ? (
+        <div className="flex items-center justify-center m-auto">
+          <HashLoader size={30} color="#f97316" />
+        </div>
+      ) : filterSearch.length === 0 ? (
         <p className="text-center p-10 text-lg text-gray-800">No items found</p>
       ) : (
         <>

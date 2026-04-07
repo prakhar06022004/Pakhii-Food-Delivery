@@ -1,12 +1,13 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useState } from "react";
 import { createContext } from "react";
 
 export const FoodContext = createContext(null);
-
 const FoodProvider = ({ children }) => {
+  const [isFoodLoading, setIsFoodLoading] = useState(true);
   const [foodListBackend, setFoodListBackend] = useState([]);
+
   useEffect(() => {
     const fetchFood = async () => {
       try {
@@ -18,13 +19,24 @@ const FoodProvider = ({ children }) => {
         console.log(foodData?.data?.data);
       } catch (error) {
         console.log(error.message);
+      } finally {
+        setIsFoodLoading(false);
       }
     };
     fetchFood();
   }, []);
 
+  const foodContextValue = useMemo(
+    () => ({
+      foodListBackend,
+      setFoodListBackend,
+      isFoodLoading,
+    }),
+    [foodListBackend, isFoodLoading],
+  );
+
   return (
-    <FoodContext.Provider value={{ foodListBackend, setFoodListBackend }}>
+    <FoodContext.Provider value={foodContextValue}>
       {children}
     </FoodContext.Provider>
   );

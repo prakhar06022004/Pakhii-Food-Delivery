@@ -1,8 +1,10 @@
 import facebook_icon from "../../assets/frontend_assets/facebook_icon.png";
 import twitter_icon from "../../assets/frontend_assets/twitter_icon.png";
 import linkedin_icon from "../../assets/frontend_assets/linkedin_icon.png";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <footer className="font-outfit bg-linear-to-br from-orange-50 via-white to-orange-50 border-t-2 border-orange-200 mt-10">
       <div className="max-w-7xl mx-auto px-6 sm:px-10 pt-12 pb-6">
@@ -69,13 +71,15 @@ const Footer = () => {
               {["Home", "About Us", "Delivery", "Privacy Policy"].map(
                 (item) => (
                   <li key={item}>
-                    <a
-                      href="#"
+                    <div
                       className="text-gray-600 text-sm font-medium hover:text-orange-500 transition-colors duration-200 flex items-center gap-2 group"
+                      onClick={() => {item === "Home" && navigate("/")
+                        item === "About Us" && navigate("about")
+                      }}
                     >
                       <span className="w-1 h-1 rounded-full bg-orange-300 group-hover:bg-orange-500 transition-colors duration-200"></span>
                       {item}
-                    </a>
+                    </div>
                   </li>
                 ),
               )}

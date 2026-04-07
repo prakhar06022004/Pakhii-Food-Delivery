@@ -5,7 +5,7 @@ const StoreProvider = ({ children }) => {
   const [search, setSearch] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const contextValue = {
+  const StoreContextValue = {
     food_list,
     search,
     setSearch,
@@ -16,7 +16,7 @@ const StoreProvider = ({ children }) => {
   };
 
   return (
-    <StoreContext.Provider value={contextValue}>
+    <StoreContext.Provider value={StoreContextValue}>
       {children}
     </StoreContext.Provider>
   );

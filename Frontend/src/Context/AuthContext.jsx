@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useMemo } from "react";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -86,19 +86,23 @@ const AuthProvider = ({ children }) => {
       console.log(error.message);
     }
   };
+
+  const AuthContextValue = useMemo(
+    () => ({
+      userData,
+      setUserData,
+      logout,
+      loginUser,
+      signUpUser,
+      signInPopUp,
+      setSignInPopUp,
+      isAuthLoading,
+    }),
+    [userData, signInPopUp, isAuthLoading],
+  );
+
   return (
-    <AuthContext.Provider
-      value={{
-        userData,
-        setUserData,
-        logout,
-        loginUser,
-        signUpUser,
-        signInPopUp,
-        setSignInPopUp,
-        isAuthLoading
-      }}
-    >
+    <AuthContext.Provider value={AuthContextValue}>
       {children}
     </AuthContext.Provider>
   );
