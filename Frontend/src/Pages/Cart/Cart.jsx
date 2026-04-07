@@ -5,13 +5,18 @@ import CartItems from "./CartItems";
 import { CartContext } from "../../Context/CartContext";
 import { AuthContext } from "../../Context/AuthContext";
 import { FoodContext } from "../../Context/FoodContext";
+import { HashLoader } from "react-spinners";
 
 function Cart() {
-  const { cartItems, totalAmount } = useContext(CartContext);
+  const { cartItems, totalAmount, isCartLoading } = useContext(CartContext);
   const { userData } = useContext(AuthContext);
-  const {foodListBackend} = useContext(FoodContext)
+  const { foodListBackend } = useContext(FoodContext);
   const navigate = useNavigate();
 
+  // ✅ NEW FIX
+  const hasValidItems = foodListBackend.some(
+    (item) => cartItems[item._id] > 0
+  );
 
   return (
     <>
@@ -24,19 +29,21 @@ function Cart() {
           className="group-hover:-translate-x-1 transition-transform duration-200"
         />
       </button>
-      {userData ? (
+
+      {isCartLoading ? (
+        <div className="flex justify-center items-center min-h-[calc(100vh-70px)]">
+          <HashLoader size={30} color="#f97316" />
+        </div>
+      ) : userData ? (
         <>
           <div className="max-w-7xl mx-auto px-3 py-4 mt-5 min-h-[calc(100vh-70px)]">
-            {/* Back Button */}
 
-            {Object.values(cartItems).some((qty) => qty > 0) ? (
+            {hasValidItems ? (   
               <div>
-                {/* Page Title */}
                 <h1 className="text-2xl font-bold text-gray-800 mb-6">
                   Your Cart 🛒
                 </h1>
 
-                {/* Cart Items List */}
                 <div className="flex flex-col gap-3">
                   {foodListBackend.map((foodItems) => {
                     if (cartItems[foodItems._id] > 0) {
@@ -51,9 +58,7 @@ function Cart() {
                   })}
                 </div>
 
-                {/* Bottom Section */}
                 <div className="mt-8 flex flex-col md:flex-row gap-6 justify-between">
-                  {/* Cart Totals */}
                   <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:w-80 flex flex-col gap-4">
                     <p className="font-semibold text-xl text-gray-800">
                       Cart Totals
@@ -88,7 +93,6 @@ function Cart() {
                     </button>
                   </div>
 
-                  {/* Promo Code */}
                   <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:w-80 flex flex-col gap-4 h-fit">
                     <p className="font-semibold text-gray-800">Promo Code</p>
                     <p className="text-sm text-gray-500">
@@ -108,7 +112,6 @@ function Cart() {
                 </div>
               </div>
             ) : (
-              /* Empty Cart State */
               <div className="flex flex-col justify-center items-center min-h-[calc(100vh-160px)] gap-4 text-center">
                 <div className="text-7xl">🛒</div>
                 <p className="text-xl font-semibold text-gray-700">
@@ -128,17 +131,15 @@ function Cart() {
           </div>
         </>
       ) : (
-        <>
-          <div className="min-h-[calc(100vh-70px)] flex flex-col items-center justify-center gap-4">
-            <div className="text-6xl">🔒</div>
-            <p className="text-xl font-semibold text-gray-700">
-              Login Required
-            </p>
-            <p className="text-sm text-gray-400">
-              Please login / Signup to view your cart
-            </p>
-          </div>
-        </>
+        <div className="min-h-[calc(100vh-70px)] flex flex-col items-center justify-center gap-4">
+          <div className="text-6xl">🔒</div>
+          <p className="text-xl font-semibold text-gray-700">
+            Login Required
+          </p>
+          <p className="text-sm text-gray-400">
+            Please login / Signup to view your cart
+          </p>
+        </div>
       )}
     </>
   );

@@ -9,7 +9,8 @@ const CartItems = ({ item, qty }) => {
     useContext(CartContext);
 
   return (
-    <div className="flex items-center justify-between bg-white rounded-2xl px-4 py-4 shadow-sm border border-gray-100 hover:border-orange-200 hover:shadow-md transition-all duration-200 select-none">
+    <>
+     <div className="flex items-center justify-between bg-white rounded-2xl px-4 py-4 shadow-sm border border-gray-100 hover:border-orange-200 hover:shadow-md transition-all duration-200 select-none">
       {/* Left: Image + Info */}
       <div className="flex items-center gap-4">
         <img
@@ -64,6 +65,8 @@ const CartItems = ({ item, qty }) => {
         </button>
       </div>
     </div>
+   
+    </>
   );
 };
 

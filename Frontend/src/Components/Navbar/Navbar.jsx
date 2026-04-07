@@ -137,15 +137,15 @@ function Navbar({ setSidebarOpen, setSignInPopUp }) {
 
          <div className="hidden md:block">
   {isAuthLoading ? (
-    <HashLoader size={35} color="#f97316" />
+    <HashLoader size={30} color="#f97316" />
   ) : userData ? (
     <button
-      className="items-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-xl"
+      className="flex items-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-xl cursor-pointer hover:bg-orange-600 duration-200"
       onClick={async () => {
         await logout();
         navigate("/");
       }}
-    >
+    ><GrLogout />
       Logout
     </button>
   ) : null}
