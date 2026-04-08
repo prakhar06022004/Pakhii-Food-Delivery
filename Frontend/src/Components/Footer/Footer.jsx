@@ -36,7 +36,7 @@ const Footer = () => {
                 <img
                   src={facebook_icon}
                   alt="Facebook"
-                  className="w-4 h-4 opacity-60 group-hover:opacity-100 group-hover:invert"
+                  className="bg-orange-500 rounded-full opacity-60 group-hover:opacity-100"
                 />
               </a>
               <a
@@ -46,7 +46,7 @@ const Footer = () => {
                 <img
                   src={twitter_icon}
                   alt="Twitter"
-                  className="w-4 h-4 opacity-60 group-hover:opacity-100 group-hover:invert"
+                  className="bg-orange-500 rounded-full opacity-60 group-hover:opacity-100"
                 />
               </a>
               <a
@@ -56,7 +56,7 @@ const Footer = () => {
                 <img
                   src={linkedin_icon}
                   alt="LinkedIn"
-                  className="w-4 h-4 opacity-60 group-hover:opacity-100 group-hover:invert"
+                  className="bg-orange-500 rounded-full opacity-60 group-hover:opacity-100"
                 />
               </a>
             </div>
@@ -73,8 +73,9 @@ const Footer = () => {
                   <li key={item}>
                     <div
                       className="text-gray-600 text-sm font-medium hover:text-orange-500 transition-colors duration-200 flex items-center gap-2 group"
-                      onClick={() => {item === "Home" && navigate("/")
-                        item === "About Us" && navigate("about")
+                      onClick={() => {
+                        item === "Home" && navigate("/");
+                        item === "About Us" && navigate("about");
                       }}
                     >
                       <span className="w-1 h-1 rounded-full bg-orange-300 group-hover:bg-orange-500 transition-colors duration-200"></span>

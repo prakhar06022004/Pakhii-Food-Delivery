@@ -1,4 +1,3 @@
-
 const AboutUs = () => {
   return (
     <div className="bg-orange-50 min-h-screen py-12 px-6 md:px-16">

@@ -9,6 +9,7 @@ import LoginPopUp from "./Components/LoginPopUp/LoginPopUp";
 import SideBarOpenComp from "../src/Components/SidebarOpen/SideBarOpenComp";
 import { AuthContext } from "./Context/AuthContext";
 import AboutUs from "./Pages/About Us/AboutUs";
+import ContactUs from "./Pages/ContactUs/ContactUs";
 
 function App() {
   const { setSidebarOpen, sidebarOpen } = useContext(StoreContext);
@@ -28,6 +29,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/order" element={<PlaceOrder />} />
         <Route path="/about" element={<AboutUs />} />
+        <Route path="/contact" element={<ContactUs />} />
       </Routes>
     </>
   );
