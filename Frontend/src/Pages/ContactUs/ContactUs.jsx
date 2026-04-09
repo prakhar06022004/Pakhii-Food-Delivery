@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -26,14 +26,13 @@ const ContactUs = () => {
 
   return (
     <div className="min-h-screen bg-orange-50 flex items-center justify-center px-4 py-10">
-      
       <div className="w-full max-w-5xl bg-white rounded-2xl shadow-lg overflow-hidden grid md:grid-cols-2">
-        
         {/* LEFT SIDE */}
-        <div className="bg-gradient-to-br from-orange-500 to-orange-600 text-white p-8 flex flex-col justify-center">
+        <div className="bg-linear-to-br from-orange-500 to-orange-600 text-white p-8 flex flex-col justify-center">
           <h2 className="text-3xl font-bold mb-4">Get in Touch 🍔</h2>
           <p className="mb-6 text-orange-100">
-            We’d love to hear from you! Whether it's feedback, queries, or cravings 😋
+            We’d love to hear from you! Whether it's feedback, queries, or
+            cravings 😋
           </p>
 
           <div className="space-y-3 text-sm">
@@ -50,7 +49,6 @@ const ContactUs = () => {
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            
             <input
               type="text"
               name="name"
@@ -87,10 +85,8 @@ const ContactUs = () => {
             >
               Send Message 🚀
             </button>
-
           </form>
         </div>
-
       </div>
     </div>
   );

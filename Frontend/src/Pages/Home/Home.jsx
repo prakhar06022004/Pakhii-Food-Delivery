@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Header from "../../Components/Header/Header";
 import Menu from "../../Components/View Menu/Menu";
 import FoodDisplay from "../../Components/FoodDisplay/FoodDisplay";

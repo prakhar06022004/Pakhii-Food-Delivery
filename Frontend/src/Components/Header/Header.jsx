@@ -6,10 +6,8 @@ function Header() {
 
   return (
     <div className="w-full max-w-6xl mx-auto md:h-110 h-60 sm:h-80 bg-[url('/header_img.png')] mt-4 bg-cover bg-center rounded-3xl p-6 md:p-10 relative overflow-hidden shadow-2xl">
-      
       {/* Content */}
       <div className="relative z-10 flex flex-col h-full justify-between">
-        
         {/* Heading */}
         <div>
           <p className="text-white font-extrabold text-4xl md:text-6xl leading-tight drop-shadow-lg">
@@ -35,7 +33,6 @@ function Header() {
             🍽️ View Menu
           </button>
         </div>
-
       </div>
     </div>
   );
