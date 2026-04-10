@@ -39,7 +39,6 @@ const LoginPopUp = ({ setSignInPopUp }) => {
 
     setError(newErrors);
 
-    // stop if error
     if (newErrors.name || newErrors.email || newErrors.password) {
       return;
     }
@@ -88,6 +87,41 @@ const LoginPopUp = ({ setSignInPopUp }) => {
           )}
         </h1>
 
+        {/* ✅ SIRF YEH TAB TOGGLE ADD KIA HAI */}
+        <div className="flex bg-orange-50 border border-orange-200 rounded-xl p-1 mt-5">
+          <button
+            type="button"
+            onClick={() => {
+              setCurrState("Login");
+              setData({ name: "", email: "", password: "" });
+              setError({ name: "", email: "", password: "" });
+            }}
+            className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer ${
+              currState === "Login"
+                ? "bg-orange-400 text-white shadow-sm"
+                : "text-orange-600 hover:bg-orange-100"
+            }`}
+          >
+            Login
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setCurrState("SignUp");
+              setData({ name: "", email: "", password: "" });
+              setError({ name: "", email: "", password: "" });
+            }}
+            className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer ${
+              currState === "SignUp"
+                ? "bg-orange-400 text-white shadow-sm"
+                : "text-orange-600 hover:bg-orange-100"
+            }`}
+          >
+            Sign Up
+          </button>
+        </div>
+        {/* ✅ TOGGLE ENDS HERE */}
+
         <form className="mt-7" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-6">
             {currState === "SignUp" && (
@@ -130,7 +164,7 @@ const LoginPopUp = ({ setSignInPopUp }) => {
                 onChange={handleChange}
               />
               <div
-                className="absolute top-4 right-4 text-xl"
+                className="absolute top-4 right-4 text-xl cursor-pointer"
                 onClick={() => setShow(!show)}
               >
                 {show ? <FaEye /> : <FaEyeSlash />}
