@@ -4,10 +4,14 @@ import { MdLogin } from "react-icons/md";
 import { LiaSignInAltSolid } from "react-icons/lia";
 import { useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
+
 const LoginPopUp = ({ setSignInPopUp }) => {
   const [currState, setCurrState] = useState("Login");
   const [error, setError] = useState({ name: "", email: "", password: "" });
   const { loginUser, signUpUser } = useContext(AuthContext);
+  const [show, setShow] = useState(false);
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -116,15 +120,22 @@ const LoginPopUp = ({ setSignInPopUp }) => {
                 {error.email}
               </p>
             )}
-
-            <input
-              type="password"
-              placeholder="Enter your password"
-              name="password"
-              className="shadow-[0_0_15px_rgba(0,0,0,0.2)] p-3 rounded-2xl outline-none"
-              value={currState === "Login" ? data.password : data.password}
-              onChange={handleChange}
-            />
+            <div className="w-full relative">
+              <input
+                type={show ? "text" : "password"}
+                placeholder="Enter your password"
+                name="password"
+                className="shadow-[0_0_15px_rgba(0,0,0,0.2)] p-3 rounded-2xl outline-none w-full"
+                value={currState === "Login" ? data.password : data.password}
+                onChange={handleChange}
+              />
+              <div
+                className="absolute top-4 right-4 text-xl"
+                onClick={() => setShow(!show)}
+              >
+                {show ? <FaEye /> : <FaEyeSlash />}
+              </div>
+            </div>
             {error.password && (
               <p className="text-red-500 relative -top-4 left-2">
                 {error.password}
