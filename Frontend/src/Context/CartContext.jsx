@@ -10,7 +10,7 @@ export const CartContext = createContext(null);
 const CartStoreProvider = ({ children }) => {
   const { foodListBackend } = useContext(FoodContext);
   const [cartItems, setCartItems] = useState({});
-  const [isCartLoading,setIsCartLoading] = useState(true)
+  const [isCartLoading, setIsCartLoading] = useState(true);
 
   const addToCart = async (itemId) => {
     setCartItems((prev) => {
@@ -31,7 +31,6 @@ const CartStoreProvider = ({ children }) => {
     } catch (error) {
       console.log(error.message);
     }
-
   };
 
   useEffect(() => {
@@ -44,9 +43,9 @@ const CartStoreProvider = ({ children }) => {
         console.log(res.data);
       } catch (error) {
         console.log(error.message);
-      }    finally {
-      setIsCartLoading(false)
-    }
+      } finally {
+        setIsCartLoading(false);
+      }
     };
     cartAccess();
   }, []);
@@ -95,15 +94,15 @@ const CartStoreProvider = ({ children }) => {
     return sum;
   }, [cartItems, foodListBackend]);
 
-useEffect(() => {
-  setCartItems((prev) => {
-    return Object.fromEntries(
-      Object.entries(prev).filter(([id]) =>
-        foodListBackend.some((item) => item._id === id)
-      )
-    );
-  });
-}, [foodListBackend]);
+  useEffect(() => {
+    setCartItems((prev) => {
+      return Object.fromEntries(
+        Object.entries(prev).filter(([id]) =>
+          foodListBackend.some((item) => item._id === id),
+        ),
+      );
+    });
+  }, [foodListBackend]);
 
   const CartContextValue = useMemo(
     () => ({
@@ -112,9 +111,9 @@ useEffect(() => {
       completeRemoveCart,
       totalAmount,
       removeFromCart,
-      isCartLoading
+      isCartLoading,
     }),
-    [cartItems,isCartLoading],
+    [cartItems, isCartLoading],
   );
 
   return (

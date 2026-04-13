@@ -87,7 +87,7 @@ const LoginPopUp = ({ setSignInPopUp }) => {
           )}
         </h1>
 
-        {/* ✅ SIRF YEH TAB TOGGLE ADD KIA HAI */}
+      {/* Toggle */}
         <div className="flex bg-orange-50 border border-orange-200 rounded-xl p-1 mt-5">
           <button
             type="button"

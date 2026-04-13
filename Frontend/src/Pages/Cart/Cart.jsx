@@ -13,10 +13,7 @@ function Cart() {
   const { foodListBackend } = useContext(FoodContext);
   const navigate = useNavigate();
 
-  // ✅ NEW FIX
-  const hasValidItems = foodListBackend.some(
-    (item) => cartItems[item._id] > 0
-  );
+  const hasValidItems = foodListBackend.some((item) => cartItems[item._id] > 0);
 
   return (
     <>
@@ -37,8 +34,7 @@ function Cart() {
       ) : userData ? (
         <>
           <div className="max-w-7xl mx-auto px-3 py-4 mt-5 min-h-[calc(100vh-70px)]">
-
-            {hasValidItems ? (   
+            {hasValidItems ? (
               <div>
                 <h1 className="text-2xl font-bold text-gray-800 mb-6">
                   Your Cart 🛒
@@ -133,9 +129,7 @@ function Cart() {
       ) : (
         <div className="min-h-[calc(100vh-70px)] flex flex-col items-center justify-center gap-4">
           <div className="text-6xl">🔒</div>
-          <p className="text-xl font-semibold text-gray-700">
-            Login Required
-          </p>
+          <p className="text-xl font-semibold text-gray-700">Login Required</p>
           <p className="text-sm text-gray-400">
             Please login / Signup to view your cart
           </p>
