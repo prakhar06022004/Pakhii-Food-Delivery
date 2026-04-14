@@ -67,16 +67,14 @@ const completeRemoveFromCart = async (req, res) => {
     let { itemId } = req.body;
     delete user.cartItems[itemId];
 
-    user.markModified("cartItems"); // Zaroori hai
+    user.markModified("cartItems"); //nested object ke liye
     await user.save();
 
-    return res
-      .status(200)
-      .json({
-        success: true,
-        message: "Item completely removed",
-        data: user.cartItems,
-      });
+    return res.status(200).json({
+      success: true,
+      message: "Item completely removed",
+      data: user.cartItems,
+    });
   } catch (error) {
     return res
       .status(500)
