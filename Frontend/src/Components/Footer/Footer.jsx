@@ -2,7 +2,7 @@ import facebook_icon from "../../assets/frontend_assets/facebook_icon.png";
 import twitter_icon from "../../assets/frontend_assets/twitter_icon.png";
 import linkedin_icon from "../../assets/frontend_assets/linkedin_icon.png";
 import { useNavigate } from "react-router-dom";
-
+import { FaInstagram } from "react-icons/fa";
 const Footer = () => {
   const navigate = useNavigate();
   return (
@@ -30,33 +30,30 @@ const Footer = () => {
             {/* Social Icons */}
             <div className="flex items-center gap-3 mt-1">
               <a
-                href="#"
-                className="w-9 h-9 rounded-full bg-orange-100 border border-orange-200 flex items-center justify-center hover:bg-orange-500 hover:border-orange-500 transition-all duration-200 group"
+                href="https://www.instagram.com/prakhar_joshi7810/" target="_blank"
+                className="w-9 h-9 rounded-full bg-orange-400 flex items-center justify-center hover:bg-orange-500 hover:border-orange-500 transition-all duration-200 group"
               >
-                <img
-                  src={facebook_icon}
-                  alt="Facebook"
-                  className="bg-orange-500 rounded-full opacity-60 group-hover:opacity-100"
-                />
+                <FaInstagram className="text-white text-[16px] group-hover: group-hover:opacity-100 transition-all duration-200" />
               </a>
               <a
                 href="#"
-                className="w-9 h-9 rounded-full bg-orange-100 border border-orange-200 flex items-center justify-center hover:bg-orange-500 hover:border-orange-500 transition-all duration-200 group"
+                className="w-9 h-9 rounded-full bg-orange-100 flex items-center justify-center hover:bg-orange-500 hover:border-orange-500 transition-all duration-200 group"
               >
                 <img
                   src={twitter_icon}
                   alt="Twitter"
-                  className="bg-orange-500 rounded-full opacity-60 group-hover:opacity-100"
+                  className="bg-orange-600 rounded-full opacity-60 group-hover:opacity-100"
                 />
               </a>
               <a
-                href="#"
-                className="w-9 h-9 rounded-full bg-orange-100 border border-orange-200 flex items-center justify-center hover:bg-orange-500 hover:border-orange-500 transition-all duration-200 group"
+                href="https://www.linkedin.com/in/prakhar-joshi-917526317"
+                target="_blank"
+                className="w-9 h-9 rounded-full bg-orange-100 flex items-center justify-center hover:bg-orange-500 hover:border-orange-500 transition-all duration-200 group"
               >
                 <img
                   src={linkedin_icon}
                   alt="LinkedIn"
-                  className="bg-orange-500 rounded-full opacity-60 group-hover:opacity-100"
+                  className="bg-orange-600 rounded-full opacity-60 group-hover:opacity-100"
                 />
               </a>
             </div>
